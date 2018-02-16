@@ -17,8 +17,8 @@ class Activation(models.Model):
 
 class Profile(models.Model):
 	user 			= models.OneToOneField(UserModel, on_delete = models.CASCADE)
- 	profile_pic 	= models.ImageField(upload_to='profile-images/')
- 	level			= models.IntegerField()
+	profile_pic 	= models.ImageField(upload_to='profile-images/')
+	level			= models.IntegerField()
 	points 			= models.IntegerField(default=0)
 	college 	 	= models.CharField(max_length=20, choices = Colleges)
 	branch			= models.CharField(max_length=20, choices = Branch)
