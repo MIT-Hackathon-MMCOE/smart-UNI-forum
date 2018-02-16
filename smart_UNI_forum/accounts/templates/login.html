@@ -1,0 +1,28 @@
+
+{% load i18n %}
+
+<div class="container-fluid mt-3">
+
+    <h4>{% trans 'Log in' %}</h4>
+
+    <form method="post">
+        {% csrf_token %}
+
+        {{ form }}
+
+        <button class="btn btn-primary">{% trans 'Login' %}</button>
+    </form>
+
+    <hr>
+
+    <ul>
+        <li>
+            <a href="{% url 'password_reset' %}">{% trans 'Password reset' %}</a>
+        </li>
+        <li>
+            <a href="{% url 'resend_activation_code' %}">{% trans 'Re-send Activation Code' %}</a>
+        </li>
+    </ul>
+
+</div>
+
