@@ -272,7 +272,3 @@ class ChangeEmailForm(forms.Form):
 			if user:
 				self.add_error('email', self.error_messages['email_already_exists'])
 
-class ProfileForm(ModelForm):
-	class Meta:
-		model = Profile
-		fields = ['profile_pic', 'college', 'branch', 'interests', 'bio', 'first_name', 'last_name']

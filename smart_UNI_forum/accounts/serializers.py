@@ -34,4 +34,6 @@ class ProfileSerializer(TaggitSerializer, serializers.ModelSerializer):
 
     class Meta:
         model   = Profile
-        # fields  = ['', '', '', '', '']
+        fields  = ['first_name', 'last_name', 'tags', 'level', 'points', 'bio', 'college', 'branch', 'slug']
+
+# Router

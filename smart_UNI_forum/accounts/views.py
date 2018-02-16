@@ -18,9 +18,9 @@ from django.utils.translation import gettext_lazy as _
 from django.views.generic import RedirectView
 from django.views.generic.edit import FormView
 from django.conf import settings
-from .forms import ProfileForm
 from django.contrib.auth.decorators import login_required
 from qa.models import Question
+from django.views.generic.edit import UpdateView
 
 from .utils import (
     get_login_form, send_activation_email, get_password_reset_form, send_reset_password_email,
@@ -276,28 +276,6 @@ class ChangeEmailActivateView(RedirectView):
         return super(ChangeEmailActivateView, self).get_redirect_url()
 
 @login_required(login_url="accounts/login/")
-def profile_edit(request):
-    if request.method == 'POST':
-        user                        = UserModel.objects.get(pk = request.POST.get("profile", ""))
-        profile                     = Profile.objects.get(user = user)
-        form = ProfileForm(request.POST, request.FILES, instance = profile)
-        if form.is_valid():
-            form.save()
-            return redirect('/accounts/profile/')
-        else:
-            print( form.errors )
-            form = ProfileForm
-            context = {'form': form}
-            return render(request, 'profile_edit.html', context)
-
-    else:
-        form = ProfileForm
-        context = {'form': form}
-        return render(request, 'profile_edit.html', context)
-
-
-
-@login_required(login_url="accounts/login/")
 def profile_display(request):
     profile = Profile.objects.filter(user = request.user)
     if not profile:
@@ -327,3 +305,9 @@ def profile_display(request):
         questions       = Question.objects.filter(user = request.user)
         context         = {'profile': profile, 'followers': followers, 'following' : following, 'projects': projects, 'questions': questions}
         return render(request, 'profile_display.html', context)
+
+class ProfileUpdate(UpdateView):
+    model = Profile
+    fields = [ 'first_name', 'last_name', 'bio', 'interests', 'profile_pic', 'college', 'branch']
+
+    template_name = "profile_edit.html"
