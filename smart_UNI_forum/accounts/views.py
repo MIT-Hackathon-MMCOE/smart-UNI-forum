@@ -294,7 +294,7 @@ def profile_edit(request):
         form = ProfileForm
         context = {'form': form}
         return render(request, 'profile_edit.html', context)
-    
+
 
 
 @login_required(login_url="accounts/login/")
@@ -319,7 +319,7 @@ def profile_display(request):
         followers       = Follower.objects.filter(user = request.user).count()
         following       = Follower.objects.filter(following = request.user).count()
         projects        = Project.objects.filter(user = request.user)
-        profile         = profile[0]
+        profile         = profile.first()
         colleges        = dict(Colleges)
         branch          = dict(Branch)
         profile.college = colleges[profile.college]
