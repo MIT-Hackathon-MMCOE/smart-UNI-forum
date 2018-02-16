@@ -16,21 +16,21 @@ urlpatterns = [
     url('accounts/activate/<code>/', ActivateView.as_view(), name='activate'),
 
     url('accounts/password/change/', auth.PasswordChangeView.as_view(
-        template_name='accounts/password_change_form.html'), name='password_change'),
+        template_name='password_change_form.html'), name='password_change'),
     url('accounts/password/change/done/', auth.PasswordChangeDoneView.as_view(
-        template_name='accounts/password_change_done.html'), name='password_change_done'),
+        template_name='password_change_done.html'), name='password_change_done'),
 
     url('accounts/password/reset/',
-         PasswordResetView.as_view(template_name='accounts/password_reset.html'),
+         PasswordResetView.as_view(template_name='password_reset.html'),
          name='password_reset'),
     url('accounts/password/reset/done/', auth.PasswordResetDoneView.as_view(
-        template_name='accounts/password_reset_done.html'), name='password_reset_done'),
+        template_name='password_reset_done.html'), name='password_reset_done'),
 
     url('accounts/reset/<uidb64>/<token>/',
-         auth.PasswordResetConfirmView.as_view(template_name='accounts/password_reset_confirm.html'),
+         auth.PasswordResetConfirmView.as_view(template_name='password_reset_confirm.html'),
          name='password_reset_confirm'),
     url('accounts/reset/done/',
-         auth.PasswordResetCompleteView.as_view(template_name='accounts/password_reset_complete.html'),
+         auth.PasswordResetCompleteView.as_view(template_name='password_reset_complete.html'),
          name='password_reset_complete'),
 
     url('accounts/profile/edit/', ProfileEditView.as_view(), name='profile_edit'),
