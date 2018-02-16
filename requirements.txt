@@ -7,6 +7,7 @@ django-markdown==0.8.4
 django-rest-auth==0.9.3
 django-taggit==0.22.2
 django-taggit-labels==0.5.1
+django-taggit-serializer==0.1.5
 djangorestframework==3.7.7
 idna==2.6
 Markdown==2.6.11
