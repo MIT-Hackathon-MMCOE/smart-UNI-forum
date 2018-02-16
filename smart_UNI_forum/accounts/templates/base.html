@@ -46,7 +46,7 @@
                             <li>
                                 <a href="#"><span class="glyphicon glyphicon-bell"></span> Notifications</a>
                             </li>
-                            <li><a href="#"><span class="glyphicon glyphicon-user"></span> {{ request.user.username }}</a></a></li>
+                            <li><a href="/accounts/profile/"><span class="glyphicon glyphicon-user"></span> {{ request.user.username }}</a></a></li>
                             <li><a href="/accounts/logout/"><span class="glyphicon glyphicon-log-out"></span> Logout</a></li>
                         {% else %}
                             <li><a href="/accounts/register/"><span class="glyphicon glyphicon-user"></span> Sign Up</a></li>

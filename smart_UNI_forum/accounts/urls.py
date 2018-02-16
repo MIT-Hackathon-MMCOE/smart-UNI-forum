@@ -8,7 +8,7 @@ urlpatterns = [
     url('i18n/', include('django.conf.urls.i18n')),
 
     url('accounts/login/', SignInView.as_view(), name='login'),
-    url('accounts/logout/', auth.logout, {'next_page': '/'}),
+    url('accounts/logout/', auth.logout, {'next_page': '/accounts/login'}),
     url('accounts/activate/resend/', ReSendActivationCodeView.as_view(), name='resend_activation_code'),
 
     url('accounts/register/', SignUpView.as_view(), name='register'),
