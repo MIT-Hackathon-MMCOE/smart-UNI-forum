@@ -1,4 +1,3 @@
-<<<<<<< HEAD
 from django.conf.urls import url, include
 from .views import *
 from django.contrib.auth import views as auth
