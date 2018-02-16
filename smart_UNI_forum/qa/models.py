@@ -1,9 +1,10 @@
 # -*- coding: utf-8 -*-
 from __future__ import unicode_literals
 from django.db import models
+from .choices import *
 from taggit.managers import TaggableManager
 from django_markdown.models import MarkdownField
-
+from django.template.defaultfilters import slugify
 from django.contrib.auth import get_user_model
 UserModel = get_user_model()
 # Create your models here.
@@ -12,8 +13,9 @@ class Question(models.Model):
 	"""docstring for Question"""
 	slug 			= models.SlugField(max_length=200)
 	question 		= models.CharField(max_length = 200)
-	description		= MarkdownField()
+	description		= models.TextField(max_length=1000)
 	tags  			= TaggableManager()
+	labels			= models.CharField(max_length=20, choices = Labels)
 	upvotes 		= models.PositiveIntegerField(default = 0)
 	downvotes 		= models.PositiveIntegerField(default = 0)
 	closed  		= models.BooleanField(default=False)
@@ -21,11 +23,11 @@ class Question(models.Model):
 	user			= models.ForeignKey(UserModel)
 	created			= models.DateTimeField('date published', auto_now_add=True)
 	modified		= models.DateTimeField('date updated', auto_now=True)
-	attachment 		= models.ImageField(upload_to='images/')
+	attachment 		= models.ImageField(upload_to='images/', blank=True)
 
 	def save(self):
-		self.slug = slugify(self.get_full_name())
-		super(Profile, self).save()
+		self.slug = slugify(self.question)
+		super(Question, self).save()
 
 	def __str__(self):
 		return self.question

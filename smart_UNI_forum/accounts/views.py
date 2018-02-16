@@ -21,6 +21,7 @@ from django.conf import settings
 from django.contrib.auth.decorators import login_required
 from qa.models import Question
 from django.views.generic.edit import UpdateView
+from django.views.generic.edit import CreateView
 
 from .utils import (
     get_login_form, send_activation_email, get_password_reset_form, send_reset_password_email,
@@ -28,6 +29,7 @@ from .utils import (
 )
 
 from .choices import *
+from qa.choices import *
 from .forms import SignUpForm, ProfileEditForm, ChangeEmailForm
 from .models import *
 
@@ -303,6 +305,10 @@ def profile_display(request):
         profile.college = colleges[profile.college]
         profile.branch  = branch[profile.branch]
         questions       = Question.objects.filter(user = request.user)
+        labels = dict(Labels)
+        for question in questions:
+            question.labels = labels[question.labels]
+
         context         = {'profile': profile, 'followers': followers, 'following' : following, 'projects': projects, 'questions': questions}
         return render(request, 'profile_display.html', context)
 
@@ -311,3 +317,14 @@ class ProfileUpdate(UpdateView):
     fields = [ 'first_name', 'last_name', 'bio', 'interests', 'profile_pic', 'college', 'branch']
 
     template_name = "profile_edit.html"
+
+class CreateProjectView(CreateView):
+    model = Project
+    fields = ['title', 'description', 'url']
+
+    template_name = 'project_add.html'
+
+    def form_valid(self, form):
+        user = self.request.user
+        form.instance.user = user
+        return super(CreateProjectView, self).form_valid(form)
