@@ -17,10 +17,10 @@ class Activation(models.Model):
 
 class Profile(models.Model):
 	user 			= models.OneToOneField(UserModel, on_delete = models.CASCADE)
- 	profile_pic 	= models.ImageField(upload_to='profile-images/')
- 	level			= models.IntegerField()
-	points 			= models.IntegerField(default=0)
-	college 	 	= models.CharField(max_length=20, choices = Colleges)
+	profile_pic 	= models.ImageField(upload_to='profile-images/')
+	level			= models.IntegerField()
+	points			= models.IntegerField(default=0)
+	college	 	= models.CharField(max_length=20, choices = Colleges)
 	branch			= models.CharField(max_length=20, choices = Branch)
 	def __str__(self):
 		return self.get_full_name()
@@ -41,7 +41,7 @@ class Follower(models.Model):
 	following 		= models.ForeignKey(UserModel, related_name="Following")
 	class Meta:
 		unique_together = ('user', 'following')
-	
+
 class Project(models.Model):
 	"""docstring for Projects"""
 	title 		= models.CharField(max_length = 200)
