@@ -11,7 +11,7 @@
                         </div>
                     </div>
                     <div class="row text-center">
-                        <h1>{{ profile }}</h1>
+                        <h1>{{ profile }} <a href="/accounts/profile/edit/"><span class="glyphicon glyphicon-edit" style="font-size: 20px"></span></a></h1>
                         <h5 class="lead">
                             <a href="{% url "profile_display" %}">{{ profile.user.username }}</a></h5>
                         <hr style="margin-left: 10%; margin-right: 10%">

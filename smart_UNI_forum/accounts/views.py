@@ -283,7 +283,7 @@ def profile_edit(request):
         form = ProfileForm(request.POST, request.FILES, instance = profile)
         if form.is_valid():
             form.save()
-            return redirect('accounts/profile/')
+            return redirect('/accounts/profile/')
         else:
             print( form.errors )
             form = ProfileForm
