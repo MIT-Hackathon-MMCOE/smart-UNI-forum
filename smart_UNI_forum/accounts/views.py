@@ -35,9 +35,6 @@ class IndexPageView(TemplateView):
     template_name = 'index.html'
 
 
-class ChangeLanguageView(TemplateView):
-    template_name = 'change_language.html'
-
 class SuccessRedirectView(SuccessURLAllowedHostsMixin, FormView):
     redirect_field_name = REDIRECT_FIELD_NAME
 

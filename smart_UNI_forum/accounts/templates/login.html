@@ -7,10 +7,12 @@
             <legend>
                 <h1>Login</h1>
             </legend>
-            <form method="POST" action="" style="margin-top:3%">{% csrf_token %}
+            <form method="POST" action="{% url 'login' %}" style="margin-top:3%">{% csrf_token %}
                 {{ form | crispy }}
                 <div class="col-lg-12 col-md-12 col-sm-12" style="padding: 0">
                     <div class="col-lg-6 col-md-6 col-sm-6 pull-left" style="padding: 0">
+                <input class="btn btn-primary" style="align-self: center;" type="submit" value="login" />
+            </form>
                         <a href="{% url 'password_reset' %}">Password reset</a>
                     </div>
                     <div class="col-lg-6 col-md-6 col-sm-6">
@@ -19,7 +21,5 @@
                 </div>
                 <br>
                 <br>
-                <a href="" class="btn btn-primary no_borders">Login</a>
-            </form>
         </div>
 {% endblock %}

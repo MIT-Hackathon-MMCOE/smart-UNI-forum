@@ -166,7 +166,7 @@ class ReSendActivationCodeViaEmailForm(forms.Form):
 	def __init__(self, request=None, *args, **kwargs):
 		self.request = request
 		self.user_cache = None
-		super().__init__(*args, **kwargs)
+		super(ReSendActivationCodeViaEmailForm, self).__init__(*args, **kwargs)
 
 	def clean(self):
 		cleaned_data = super(ReSendActivationCodeViaEmailForm, self).clean()

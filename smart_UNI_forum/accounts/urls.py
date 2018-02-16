@@ -6,7 +6,6 @@ urlpatterns = [
 	# url('', IndexPageView.as_view(), name='index'),
 
     url('i18n/', include('django.conf.urls.i18n')),
-    url('language/', ChangeLanguageView.as_view(), name='change_language'),
 
     url('accounts/login/', SignInView.as_view(), name='login'),
     url('accounts/logout/', auth.LogoutView.as_view(template_name='accounts/logout.html'), name='logout'),
