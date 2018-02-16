@@ -20,7 +20,7 @@ from django.views.generic.edit import FormView
 from django.conf import settings
 from .forms import ProfileForm
 from django.contrib.auth.decorators import login_required
-
+from qa.models import Question
 
 from .utils import (
     get_login_form, send_activation_email, get_password_reset_form, send_reset_password_email,
@@ -324,5 +324,6 @@ def profile_display(request):
         branch          = dict(Branch)
         profile.college = colleges[profile.college]
         profile.branch  = branch[profile.branch]
-        context     = {'profile': profile, 'followers': followers, 'following' : following, 'projects': projects}
+        questions       = Question.objects.filter(user = request.user)
+        context         = {'profile': profile, 'followers': followers, 'following' : following, 'projects': projects, 'questions': questions}
         return render(request, 'profile_display.html', context)
