@@ -13,6 +13,10 @@ from .models import Activation, Profile
 UserModel = get_user_model()
 
 
+from taggit_labels.widgets import LabelWidget
+from taggit.forms import TagField
+
+
 def get_sign_up_fields():
 	if hasattr(settings, 'DISABLE_USERNAME') and settings.DISABLE_USERNAME:
 		return ['first_name', 'last_name', 'email', 'password1', 'password2']
@@ -271,4 +275,4 @@ class ChangeEmailForm(forms.Form):
 class ProfileForm(ModelForm):
 	class Meta:
 		model = Profile
-		fields = ['profile_pic', 'college', 'branch']
+		fields = ['profile_pic', 'college', 'branch', 'interests', 'first_name', 'last_name']

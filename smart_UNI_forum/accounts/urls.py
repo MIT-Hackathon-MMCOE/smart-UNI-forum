@@ -37,5 +37,6 @@ urlpatterns = [
          name='change_email_activation'),
     url('accounts/profile/edit', profile_edit, name='profile_edit'),
 
+    url('accounts/profile', profile_display, name='profile_display'),
 ]
 

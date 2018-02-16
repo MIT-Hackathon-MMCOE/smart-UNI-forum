@@ -48,6 +48,7 @@ INSTALLED_APPS = [
     'rest_auth.registration',
     'qa',
     'taggit',
+    'taggit_labels',
 ]
 
 MIDDLEWARE = [

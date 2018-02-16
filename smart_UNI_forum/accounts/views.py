@@ -19,6 +19,8 @@ from django.views.generic import RedirectView
 from django.views.generic.edit import FormView
 from django.conf import settings
 from .forms import ProfileForm
+from django.contrib.auth.decorators import login_required
+
 
 from .utils import (
     get_login_form, send_activation_email, get_password_reset_form, send_reset_password_email,
@@ -26,7 +28,7 @@ from .utils import (
 )
 
 from .forms import SignUpForm, ProfileEditForm, ChangeEmailForm
-from .models import Activation
+from .models import *
 
 UserModel = get_user_model()
 
@@ -272,7 +274,25 @@ class ChangeEmailActivateView(RedirectView):
 
         return super(ChangeEmailActivateView, self).get_redirect_url()
 
+@login_required(login_url="accounts/login/")
 def profile_edit(request):
     form = ProfileForm
     context = {'form': form}
     return render(request, 'profile_edit.html', context)
+
+@login_required(login_url="accounts/login/")
+def profile_display(request):
+    
+    profile = Profile.objects.filter(user = request.user)
+
+    profile = Profile(
+                        user          = request.user,
+                        first_name    = request.user.first_name,
+                        last_name     = request.user.last_name,
+                        level         = 0,
+                        points        = 0
+                     )
+    profile.save()
+
+    context = {'profile': profile}
+    return render(request, 'profile_display.html', context)

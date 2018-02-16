@@ -4,6 +4,8 @@ from __future__ import unicode_literals
 from django.db import models
 # from django_markdown.models import MarkdownField
 from .choices import *
+from taggit.managers import TaggableManager
+
 
 from django.contrib.auth import get_user_model
 UserModel = get_user_model()
@@ -17,11 +19,17 @@ class Activation(models.Model):
 
 class Profile(models.Model):
 	user 			= models.OneToOneField(UserModel, on_delete = models.CASCADE)
+	first_name		= models.CharField(max_length = 50)
+	last_name		= models.CharField(max_length = 50)
 	profile_pic 	= models.ImageField(upload_to='profile-images/')
 	level			= models.IntegerField()
+	interests		= TaggableManager()
+	bio				= models.CharField(max_length = 250)
 	points 			= models.IntegerField(default=0)
 	college 	 	= models.CharField(max_length=20, choices = Colleges, default=Colleges[0])
 	branch			= models.CharField(max_length=20, choices = Branch, default=Branch[0])
+	
+
 	def __str__(self):
 		return self.get_full_name()
 
@@ -49,5 +57,3 @@ class Project(models.Model):
 	url 		= models.URLField()
 	upload 		= models.FileField(upload_to='projects/')
 	user 		= models.ForeignKey(UserModel)
-
-
