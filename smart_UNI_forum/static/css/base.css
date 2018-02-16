@@ -76,10 +76,16 @@ nav .navbar-brand {
 /* add padding  */
 .left-addon input  { padding-left:  30px; }
 .right-addon input { padding-right: 30px; }
-/*
-@media only screen and (min-device-width: 480px) {
-     define mobile specific styles come here
-    #mobile_view{
-        margin-left: 0;
+
+/*@media only screen and (min-device-width: 480px) {
+    define mobile specific styles come here
+    .add-margin-top{
+        margin-top: 0;
     }
 }*/
+
+@media only screen and (max-width: 768px){
+    .add-margin-top{
+        margin-top: 25%;
+    }
+}
