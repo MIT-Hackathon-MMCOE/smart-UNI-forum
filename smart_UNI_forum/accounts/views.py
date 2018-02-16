@@ -305,10 +305,11 @@ def profile_display(request):
         profile.college = colleges[profile.college]
         profile.branch  = branch[profile.branch]
         questions       = Question.objects.filter(user = request.user)
+        # print(questions.tags.names())
         labels = dict(Labels)
         for question in questions:
             question.labels = labels[question.labels]
-
+            question.tags = [tag for tag in question.tags.names()]
         context         = {'profile': profile, 'followers': followers, 'following' : following, 'projects': projects, 'questions': questions}
         return render(request, 'profile_display.html', context)
 
