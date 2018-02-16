@@ -293,6 +293,9 @@ def profile_display(request):
                         points        = 0
                      )
         profile.save()
-
-    context = {'profile': profile}
+    followers   = Follower.objects.filter(user = request.user)
+    following   = Follower.objects.filter(following = request.user)
+    projects    = Project.objects.filter(user = request.user)
+    profile     = profile[0]
+    context     = {'profile': profile, 'followers': followers, 'following' : following, 'projects': projects}
     return render(request, 'profile_display.html', context)
