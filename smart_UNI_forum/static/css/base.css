@@ -33,15 +33,6 @@ nav .navbar-brand {
 
 }
 
-/*change default behaviour of jumbotron*/
-.jumbotron {
-    margin-bottom: 0px;
-    height: 350px;
-    color: white;
-    background-color: #2E3134;
-    border-radius: 0px !important;
-}
-
 .section-heading {
     color: #2E3134;
 }
@@ -53,10 +44,10 @@ nav .navbar-brand {
 
 
 /* ===================================== Profile styles ======================================== */
-.list-group-item{
+.thumbnail{
     border-radius: 0px !important;
 }
 
-.thumbnail{
-    border-radius: 0px !important;
+.no_borders{
+    border-radius: 0px;
 }
