@@ -121,3 +121,10 @@ USE_TZ = True
 STATIC_URL = '/static/'
 MEDIA_URL = '/wp-content/'
 MEDIA_ROOT = os.path.join( BASE_DIR, 'wp-content')
+
+# Add these new lines
+STATICFILES_DIRS = (
+    os.path.join(BASE_DIR, 'static'),
+)
+
+STATIC_ROOT = os.path.join(BASE_DIR, 'staticfiles')

@@ -3,8 +3,6 @@ from __future__ import unicode_literals
 
 from django.views.generic import TemplateView
 from django.shortcuts import render
-
-
 from django.contrib.auth import login, authenticate, REDIRECT_FIELD_NAME, get_user_model
 from django.contrib import messages
 from django.contrib.auth.mixins import LoginRequiredMixin
