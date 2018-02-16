@@ -284,15 +284,15 @@ def profile_edit(request):
 def profile_display(request):
     
     profile = Profile.objects.filter(user = request.user)
-
-    profile = Profile(
+    if not profile:
+        profile = Profile(
                         user          = request.user,
                         first_name    = request.user.first_name,
                         last_name     = request.user.last_name,
                         level         = 0,
                         points        = 0
                      )
-    profile.save()
+        profile.save()
 
     context = {'profile': profile}
     return render(request, 'profile_display.html', context)
