@@ -1,10 +1,52 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-	<meta charset="UTF-8">
-	<title>Profile</title>
-</head>
-<body>
-	{{ profile }}
-</body>
-</html>
+{% extends "base.html" %}
+
+{% block content %}
+    {% load staticfiles %}
+        <div class="container" style="margin-top: 6%">
+            <div class="col-lg-12 col-md-12 col-sm-12">
+                <div class="col-lg-4 col-md-4 col-sm-12 cards">
+                    <div class="row text-center">
+                        <div class="col-lg-12 col-md-12 col-sm-12">
+                            <img src="{% static "images/python.jpg" %}" class="img-responsive img-circle center-block" style="height: 120px; width: 120px; margin-top: 4%">
+                        </div>
+                    </div>
+                    <div class="row text-center">
+                        <h1>{{ profile }}</h1>
+                        <h5 class="lead">
+                            <a href="{% url "profile_display" %}">{{ profile.user.username }}</a></h5>
+                        <hr style="margin-left: 10%; margin-right: 10%">
+                    </div>
+                    {% if profile.college %}
+                        <div class="row" style="margin-left: 5%; margin-right: 2%; margin-bottom: 5%">
+                            <div class="col-lg-6 col-md-6 col-sm-6">
+                                <div class="btn btn-default no_borders">Followers &#9679; 10</div>
+                            </div>
+                            <div class="col-lg-6 col-md-6 col-sm-6">
+                                <div class="btn btn-default no_borders">Following &#9679; 10</div>
+                            </div>
+                            <div style="padding: 5%"></div>
+                        </div>
+                        <div class="row" style="margin-left: 5%; margin-right: 5%; margin-bottom: 5%">
+                            <div class="col-lg-12 col-md-12 col-sm-12 text-center">
+                                <div style="border: 1px solid lightgray; padding: 10px">College | {{ profile.college }}</div>
+                            </div>
+                        </div>
+                        <div class="row" style="margin-left: 5%; margin-right: 5%; margin-bottom: 5%">
+                            <div class="col-lg-12 col-md-12 col-sm-12 text-center">
+                                <div style="border: 1px solid lightgray; padding: 10px">Branch | {{ profile.branch }}</div>
+                            </div>
+                        </div>
+                    {% endif %}
+                </div> <!-- col-md-4 -->
+                <div class="col-lg-7 col-md-7 col-sm-12 cards" style="margin-left: 2%">
+                    <legend>
+                        <h1>Projects</h1>
+                    </legend>
+                    <h4> Project Title</h4>
+                    <h4> Project Desc</h4>
+                    <h4> Project Link</h4>
+                    <hr>
+                </div> <!-- col-md-8 -->
+            </div> <!-- col-md-12 -->
+        </div> <!-- container -->
+{% endblock %}
