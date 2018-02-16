@@ -22,8 +22,8 @@ class Profile(models.Model):
 	user 			= models.OneToOneField(UserModel, on_delete = models.CASCADE)
 	first_name		= models.CharField(max_length = 50)
 	last_name		= models.CharField(max_length = 50)
-	profile_pic 	= models.ImageField(upload_to='profile-images/')
-	level			= models.IntegerField()
+	profile_pic 	= models.ImageField(upload_to='profile-images/', blank = True)
+	level			= models.IntegerField(default = 1)
 	interests		= TaggableManager()
 	bio				= models.CharField(max_length = 250)
 	points 			= models.IntegerField(default=0)
@@ -39,7 +39,10 @@ class Profile(models.Model):
 		return self.get_full_name()
 
 	def get_full_name(self):
-		full_name = '%s %s' % (self.user.first_name, self.user.last_name)
+		if self.first_name and self.last_name:
+			full_name = '%s %s' % (self.first_name, self.last_name)
+		else:
+			full_name = '%s %s' % (self.user.first_name, self.user.last_name)
 		return full_name.strip()
 
 	def get_short_name(self):

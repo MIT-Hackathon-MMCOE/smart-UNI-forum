@@ -9,6 +9,7 @@
             </legend>
             <form method="POST" action="" style="margin-top:3%">{% csrf_token %}
                 {{ form | crispy }}
+                <input name="profile" value="{{ request.user.id }}" type="hidden">
                 <input class="btn btn-primary no_borders" style="align-self: center;" type="submit" value="Update Profile" />
             </form>
             <!-- <div class="col-lg-6 col-md-6 col-sm-6">

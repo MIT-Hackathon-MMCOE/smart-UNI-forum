@@ -2,7 +2,7 @@
 from __future__ import unicode_literals
 
 from django.views.generic import TemplateView
-from django.shortcuts import render
+from django.shortcuts import render, redirect
 from django.contrib.auth import login, authenticate, REDIRECT_FIELD_NAME, get_user_model
 from django.contrib import messages
 from django.contrib.auth.mixins import LoginRequiredMixin
@@ -278,13 +278,11 @@ class ChangeEmailActivateView(RedirectView):
 @login_required(login_url="accounts/login/")
 def profile_edit(request):
     if request.method == 'POST':
-        form = ProfileForm(request.POST, request.FILES)
+        user                        = UserModel.objects.get(pk = request.POST.get("profile", ""))
+        profile                     = Profile.objects.get(user = user)
+        form = ProfileForm(request.POST, request.FILES, instance = profile)
         if form.is_valid():
-            profile_id                  = form("profile", "")
-            instance                    = form.save(commit=False)
-            instance.id                 = Profile.objects.get(pk = profile_id)
-            profile.profile_pic         = form.cleaned_data['profile_pic']
-
+            form.save()
             return redirect('accounts/profile/')
         else:
             print( form.errors )
@@ -311,13 +309,20 @@ def profile_display(request):
                         points        = 0
                      )
         profile.save()
-    followers       = Follower.objects.filter(user = request.user).count()
-    following       = Follower.objects.filter(following = request.user).count()
-    projects        = Project.objects.filter(user = request.user)
-    profile         = profile[0]
-    colleges        = dict(Colleges)
-    branch          = dict(Branch)
-    profile.college = colleges[profile.college]
-    profile.branch  = branch[profile.branch]
-    context     = {'profile': profile, 'followers': followers, 'following' : following, 'projects': projects}
-    return render(request, 'profile_display.html', context)
+        followers       = Follower.objects.filter(user = request.user).count()
+        following       = Follower.objects.filter(following = request.user).count()
+        projects        = Project.objects.filter(user = request.user)
+        profile         = profile[0]
+        context     = {'profile': profile, 'followers': followers, 'following' : following, 'projects': projects}
+        return render(request, 'profile_display.html', context)
+    else:
+        followers       = Follower.objects.filter(user = request.user).count()
+        following       = Follower.objects.filter(following = request.user).count()
+        projects        = Project.objects.filter(user = request.user)
+        profile         = profile[0]
+        colleges        = dict(Colleges)
+        branch          = dict(Branch)
+        profile.college = colleges[profile.college]
+        profile.branch  = branch[profile.branch]
+        context     = {'profile': profile, 'followers': followers, 'following' : following, 'projects': projects}
+        return render(request, 'profile_display.html', context)

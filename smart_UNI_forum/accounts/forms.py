@@ -275,4 +275,4 @@ class ChangeEmailForm(forms.Form):
 class ProfileForm(ModelForm):
 	class Meta:
 		model = Profile
-		fields = ['profile_pic', 'college', 'branch', 'interests', 'first_name', 'last_name']
+		fields = ['profile_pic', 'college', 'branch', 'interests', 'bio', 'first_name', 'last_name']
