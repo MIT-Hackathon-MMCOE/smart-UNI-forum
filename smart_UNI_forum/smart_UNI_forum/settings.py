@@ -49,6 +49,7 @@ INSTALLED_APPS = [
     'qa',
     'taggit',
     'taggit_labels',
+    'taggit_serializer',
 ]
 
 MIDDLEWARE = [

@@ -1,7 +1,7 @@
 from rest_framework import serializers
 from rest_auth.serializers import UserDetailsSerializer
-from taggit_serializer.serializers import TagListSerializerField, TaggitSerializer
-
+from taggit_serializer.serializers import (TagListSerializerField,
+                                            TaggitSerializer)
 from .models import Profile
 
 class UserSerializer(UserDetailsSerializer):
@@ -34,6 +34,5 @@ class ProfileSerializer(TaggitSerializer, serializers.ModelSerializer):
 
     class Meta:
         model   = Profile
-        fields  = ['first_name', 'last_name', 'tags', 'level', 'points', 'bio', 'college', 'branch', 'slug']
+        fields  = ['first_name', 'last_name', 'interests', 'level', 'points', 'bio', 'college', 'branch', 'slug']
 
-# Router
