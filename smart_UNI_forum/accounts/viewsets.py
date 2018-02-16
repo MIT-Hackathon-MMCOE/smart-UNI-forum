@@ -17,5 +17,6 @@ class ProfileViewSet(viewsets.ModelViewSet):
             return JsonResponse(serializer.data, safe=False)
         
 
-router = routers.DefaultRouter()
-router.register('profile', ProfileViewSet)
+
+router = routers.SimpleRouter()
+router.register('profile', ProfileViewSet, 'profile')
