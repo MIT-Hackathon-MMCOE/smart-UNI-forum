@@ -5,8 +5,6 @@ from django.db import models
 # from django_markdown.models import MarkdownField
 from .choices import *
 
-
-
 from django.contrib.auth import get_user_model
 UserModel = get_user_model()
 
