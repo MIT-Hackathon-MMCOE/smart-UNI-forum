@@ -17,11 +17,11 @@
                         <hr style="margin-left: 10%; margin-right: 10%">
                     </div>
                     {% if profile.college %}
-                        <div class="row" style="margin-left: 5%; margin-right: 2%; margin-bottom: 5%">
-                            <div class="col-lg-6 col-md-6 col-sm-6 col-xs-6">
+                        <div class="row" style="margin-left: 5%; margin-bottom: 5%">
+                            <div class="col-lg-6 col-md-6 col-sm-6 col-xs-5">
                                 <div class="btn btn-success no_borders">Followers &#9679; {{ followers }}</div>
                             </div>
-                            <div class="col-lg-6 col-md-6 col-sm-6 col-xs-6">
+                            <div class="col-lg-6 col-md-6 col-sm-6 col-xs-5">
                                 <div class="btn btn-success no_borders">Following &#9679; {{ following }}</div>
                             </div>
                             <div style="padding: 5%"></div>
@@ -41,11 +41,11 @@
                 <div id="mobile_view" class="col-lg-7 col-md-7 col-sm-12 col-xs-12" style="padding: 0; margin-left: 2%;">
                     <div class="col-lg-12 col-md-12 col-sm-12 cards" style="margin-bottom: 5%">
                         <legend class="col-lg-12 col-md-12 col-sm-12 col-xs-12" style="padding: 0">
-                            <div class="col-lg-6 col-md-6 col-sm-6" style="padding: 0">
+                            <div class="col-lg-6 col-md-6 col-sm-6 col-xs-6" style="padding: 0">
                                 <h1 style="color: #01579B; padding: 0"">Projects</h1>
                             </div>
-                            <div class="col-lg-6 col-md-6 col-sm-6">
-                                <a href="{% url 'add_project' %}"><span class="glyphicon glyphicon-plus pull-right" style="font-size: 20px; margin-top: 10%"></span></a>
+                            <div class="col-lg-6 col-md-6 col-sm-6 col-xs-6">
+                                <a href="{% url 'add_project' %}"><span class="glyphicon glyphicon-plus pull-right" style="font-size: 20px; margin-top: 25px"></span></a>
                             </div>
                         </legend>
                         {% if projects %}
@@ -60,12 +60,12 @@
                         {{ project_form }}
                     </div>
                     <div class="col-lg-12 col-md-12 col-sm-12 cards" style="margin-bottom: 5%">
-                        <legend class="col-lg-12 col-md-12 col-sm-12" style="padding: 0">
-                            <div class="col-lg-6 col-md-6 col-sm-6" style="padding: 0">
+                        <legend class="col-lg-12 col-md-12 col-sm-12 col-xs-12" style="padding: 0">
+                            <div class="col-lg-6 col-md-6 col-sm-6 col-xs-6" style="padding: 0">
                                 <h1 style="color: #01579B; padding: 0"">Posts</h1>
                             </div>
-                            <div class="col-lg-6 col-md-6 col-sm-6">
-                                <a href="/question/create/"><span class="glyphicon glyphicon-plus pull-right" style="font-size: 20px; margin-top: 10%"></span></a>
+                            <div class="col-lg-6 col-md-6 col-sm-6 col-xs-6">
+                                <a href="/question/create/"><span class="glyphicon glyphicon-plus pull-right" style="font-size: 20px; margin-top: 25px"></span></a>
                             </div>
                         </legend>
                         {% if questions %}
@@ -74,11 +74,13 @@
                                 <h5 style="color: gray;">{{ question.created }}</h5>
                                 <h4>{{ question.description }}</h4>
                                 <br>
-                                Label: <div class="btn btn-warning no_borders">{{ question.labels }}</div>
-                                <div class="pull-right">
+                                <div>
+                                    Label: <span class="btn btn-warning no_borders">{{ question.labels }}</span>
+                                    <br>
+                                    <br>
                                     Tags:
                                     {% for tag in question.tags %}
-                                        <div class="btn btn-primary no_borders">{{ tag }}</div>
+                                        <span class="btn btn-primary no_borders pull">{{ tag }}</span>
                                     {% endfor %}
                                 </div>
                                 <!-- <h4> <a href="{{ question.upload.url }}">{{ question.upload }}</a></h4> -->
