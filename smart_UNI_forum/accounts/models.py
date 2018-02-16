@@ -18,15 +18,9 @@ class Activation(models.Model):
 	email 			= models.EmailField(blank=True)
 
 class Profile(models.Model):
-<<<<<<< HEAD
 	user 			= models.OneToOneField(UserModel, on_delete = models.CASCADE)
  	profile_pic 	= models.ImageField(upload_to='profile-images/')
  	level			= models.IntegerField()
-=======
-	user 			= models.ForeignKey(UserModel, on_delete = models.CASCADE)
-	attachment		= models.ImageField(upload_to='profile-images/')
-	level			= models.IntegerField()
->>>>>>> 56583a6268aa4bd97e366f091796f490f153ab37
 	points 			= models.IntegerField(default=0)
 	college 	 	= models.CharField(max_length=20, choices = Colleges)
 	branch			= models.CharField(max_length=20, choices = Branch)
@@ -59,66 +53,3 @@ class Project(models.Model):
 	user 		= models.ForeignKey(UserModel)
 
 
-
-# # Create your models here.
-
-# class Question(models.Model):
-# 	"""docstring for Question"""
-# 	slug 			= models.SlugField(max_length=200)
-# 	question 		= models.CharField(max_length = 200)
-# 	description		= MarkdownField()
-# 	tags  			= TaggableManager()
-# 	upvotes 		= models.PositiveIntegerField(default = 0)
-# 	downvotes 		= models.PositiveIntegerField(default = 0)
-# 	closed  		= models.BooleanField(default=False)
-# 	flagged			= models.PositiveIntegerField(default = 0)
-# 	user			= models.ForeignKey(User)
-# 	created			= models.DateTimeField('date published', auto_now_add=True)
-# 	modified		= models.DateTimeField('date updated', auto_now=True)
-# 	attachment 		= models.ImageField(upload_to='images/')
-
-# 	def __str__(self):
-# 		return self.question
-
-# class Answer(models.Model):
-# 	"""Model class to contain every answer in the forum and to link it
-# 	to the proper question."""
-# 	question 		 = models.ForeignKey(Question)
-# 	answer_text 	 = MarkdownField()
-# 	created			 = models.DateTimeField('date published', auto_now_add=True)
-# 	modified		 = models.DateTimeField('date updated', auto_now=True)
-# 	user 			 = models.ForeignKey(User)
-# 	upvotes 		 = models.IntegerField(default=0)
-# 	downvotes		 = models.IntegerField(default=0)
-# 	slug 			 = models.SlugField(max_length=200)
-
-# 	def __str__(self):
-# 		return self.answer_text
-
-
-# class QuestionComment(models.Model):
-# 	"""docstring for QuestionComment"""
-# 	user 			= models.ForeignKey(User)
-# 	answer 			= models.ForeignKey(Answer)
-# 	text 			= models.CharField(max_length = 200)
-# 	created			= models.DateTimeField('date published', auto_now_add = True)
-# 	slug 			= models.SlugField(max_length=200)
-
-# class AnswerComment(models.Model):
-# 	"""docstring for AnswerComment"""
-# 	user 			= models.ForeignKey(User)
-# 	answer 			= models.ForeignKey(Answer)
-# 	text 			= models.CharField(max_length = 200)
-# 	created			= models.DateTimeField('date published', auto_now_add = True)
-# 	slug 			= models.SlugField(max_length=200)
-
-
-# class QuestionUpvote(models.Model):
-# 	"""docstring for question upvotes"""
-# 	post 	 = models.ForeignKey(Question)
-# 	liked_by = models.ForeignKey(User)
-
-# class AnswerUpvote(models.Model):
-# 	"""docstring for answer upvotes"""
-# 	post 	 = models.ForeignKey(Answer)
-# 	liked_by = models.ForeignKey(User)
