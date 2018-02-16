@@ -18,8 +18,8 @@ class Activation(models.Model):
 
 class Profile(models.Model):
 	user 			= models.ForeignKey(UserModel, on_delete = models.CASCADE)
- 	attachment 		= models.ImageField(upload_to='profile-images/')
- 	level			= models.IntegerField()
+	attachment		= models.ImageField(upload_to='profile-images/')
+	level			= models.IntegerField()
 	points 			= models.IntegerField(default=0)
 	# clg
 	# branch
@@ -44,7 +44,7 @@ class Follower(models.Model):
 	class Meta:
 		unique_together = ('user', 'following')
 
-	
+
 class Projects(models.Model):
 	"""docstring for Projects"""
 	title 		= models.CharField(max_length = 200)
@@ -63,8 +63,8 @@ class Projects(models.Model):
 # 	question 		= models.CharField(max_length = 200)
 # 	description		= MarkdownField()
 # 	tags  			= TaggableManager()
-# 	upvotes 		= models.PositiveIntegerField(default = 0) 
-# 	downvotes 		= models.PositiveIntegerField(default = 0) 
+# 	upvotes 		= models.PositiveIntegerField(default = 0)
+# 	downvotes 		= models.PositiveIntegerField(default = 0)
 # 	closed  		= models.BooleanField(default=False)
 # 	flagged			= models.PositiveIntegerField(default = 0)
 # 	user			= models.ForeignKey(User)
@@ -112,7 +112,7 @@ class Projects(models.Model):
 # 	"""docstring for question upvotes"""
 # 	post 	 = models.ForeignKey(Question)
 # 	liked_by = models.ForeignKey(User)
-	
+
 # class AnswerUpvote(models.Model):
 # 	"""docstring for answer upvotes"""
 # 	post 	 = models.ForeignKey(Answer)
