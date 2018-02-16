@@ -304,6 +304,7 @@ def profile_display(request):
         branch          = dict(Branch)
         profile.college = colleges[profile.college]
         profile.branch  = branch[profile.branch]
+        profile.interests = [interest for interest in profile.interests.names()]
         questions       = Question.objects.filter(user = request.user)
         # print(questions.tags.names())
         labels = dict(Labels)

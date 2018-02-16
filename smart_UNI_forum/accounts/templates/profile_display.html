@@ -36,6 +36,16 @@
                                 <div style="border: 1px solid lightgray; padding: 10px;">Branch | {{ profile.branch }}</div>
                             </div>
                         </div>
+                        <div class="row" style="margin-left: 5%; margin-right: 5%; margin-bottom: 5%">
+                            <div class="col-lg-12 col-md-12 col-sm-12 text-center">
+                                <h3>Interests:</h3>
+                                <span class="clearfix"></span>
+                                {% for interest in profile.interests %}
+                                    <div class="btn form-control btn-primary no_borders" style="margin-bottom: 1%">{{ interest }}</div>
+                                    <br>
+                                {% endfor %}
+                            </div>
+                        </div>
                     {% endif %}
                 </div> <!-- col-md-4 -->
                 <div id="mobile_view" class="col-lg-7 col-md-7 col-sm-12 col-xs-12" style="padding: 0; margin-left: 2%;">
