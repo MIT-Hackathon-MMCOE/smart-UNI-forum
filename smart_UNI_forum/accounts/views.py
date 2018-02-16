@@ -89,7 +89,7 @@ class SignInView(SuccessRedirectView):
 
 
 class SignUpView(FormView):
-    template_name = 'register.html'
+    template_name = 'signup.html'
     form_class = SignUpForm
     success_url = '/'
 
