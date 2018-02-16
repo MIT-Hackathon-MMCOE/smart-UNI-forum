@@ -44,8 +44,13 @@ nav .navbar-brand {
 
 
 /* ===================================== Profile styles ======================================== */
-.thumbnail{
-    border-radius: 0px !important;
+.cards {
+    border-radius: 0px;
+    box-shadow: 2px 2px 2px lightgray;
+    border-style: none;
+    border: 0;
+    color: #2E3134;
+    background-color: white;
 }
 
 .no_borders{
