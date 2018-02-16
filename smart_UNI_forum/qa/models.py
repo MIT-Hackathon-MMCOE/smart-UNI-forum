@@ -15,7 +15,7 @@ class Question(models.Model):
 	question 		= models.CharField(max_length = 200)
 	description		= models.TextField(max_length=1000)
 	tags  			= TaggableManager()
-	labels			= models.CharField(max_length=20, choices = Labels)
+	labels			= models.CharField(max_length=50, choices = Labels)
 	upvotes 		= models.PositiveIntegerField(default = 0)
 	downvotes 		= models.PositiveIntegerField(default = 0)
 	closed  		= models.BooleanField(default=False)
