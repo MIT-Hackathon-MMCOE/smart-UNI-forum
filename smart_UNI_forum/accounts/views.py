@@ -34,6 +34,10 @@ UserModel = get_user_model()
 class IndexPageView(TemplateView):
     template_name = 'index.html'
 
+def LogoutView(request):
+    """docstring for LogoutView"""
+    logout(request)
+    return redirect('/accounts/login')
 
 class SuccessRedirectView(SuccessURLAllowedHostsMixin, FormView):
     redirect_field_name = REDIRECT_FIELD_NAME
