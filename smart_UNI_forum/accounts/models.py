@@ -41,7 +41,7 @@ class Follower(models.Model):
 	following 		= models.ForeignKey(UserModel, related_name="Following")
 	class Meta:
 		unique_together = ('user', 'following')
-	
+
 class Project(models.Model):
 	"""docstring for Projects"""
 	title 		= models.CharField(max_length = 200)
