@@ -23,6 +23,10 @@ class Question(models.Model):
 	modified		= models.DateTimeField('date updated', auto_now=True)
 	attachment 		= models.ImageField(upload_to='images/')
 
+	def save(self):
+		self.slug = slugify(self.get_full_name())
+		super(Profile, self).save()
+
 	def __str__(self):
 		return self.question
 

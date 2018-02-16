@@ -1,5 +1,6 @@
 from rest_framework import serializers
 from rest_auth.serializers import UserDetailsSerializer
+from taggit_serializer.serializers import TagListSerializerField, TaggitSerializer
 
 from .models import Profile
 
@@ -24,3 +25,13 @@ class UserSerializer(UserDetailsSerializer):
             profile.company_name = company_name
             profile.save()
         return instance
+
+
+
+class ProfileSerializer(TaggitSerializer, serializers.ModelSerializer):
+
+    interests = TagListSerializerField()
+
+    class Meta:
+        model   = Profile
+        # fields  = ['', '', '', '', '']

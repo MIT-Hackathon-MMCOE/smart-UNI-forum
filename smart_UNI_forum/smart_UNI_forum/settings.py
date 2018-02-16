@@ -142,7 +142,7 @@ SITE_ID = 1
 
 STATIC_URL = '/static/'
 MEDIA_URL = '/wp-content/'
-MEDIA_ROOT = os.path.join( BASE_DIR, 'wp-content')
+MEDIA_ROOT = os.path.join(BASE_DIR, 'wp-content')
 
 # Add these new lines
 STATICFILES_DIRS = (

@@ -4,6 +4,7 @@ from __future__ import unicode_literals
 from django.db import models
 # from django_markdown.models import MarkdownField
 from .choices import *
+from django.template.defaultfilters import slugify
 from taggit.managers import TaggableManager
 
 
@@ -26,9 +27,13 @@ class Profile(models.Model):
 	interests		= TaggableManager()
 	bio				= models.CharField(max_length = 250)
 	points 			= models.IntegerField(default=0)
-	college 	 	= models.CharField(max_length=20, choices = Colleges, default=Colleges[0])
-	branch			= models.CharField(max_length=20, choices = Branch, default=Branch[0])
-	
+	college 	 	= models.CharField(max_length=20, choices = Colleges)
+	branch			= models.CharField(max_length=20, choices = Branch)
+	slug 			= models.SlugField(max_length = 60, unique = True)
+
+	def save(self):
+		self.slug = slugify(self.get_full_name())
+		super(Profile, self).save()
 
 	def __str__(self):
 		return self.get_full_name()
@@ -39,9 +44,6 @@ class Profile(models.Model):
 
 	def get_short_name(self):
 		return self.user.first_name
-
-	def get_followers(self):
-		list(Follower.objects.filter(following = self.pk))
 
 class Follower(models.Model):
 	"""docstring for Followers"""

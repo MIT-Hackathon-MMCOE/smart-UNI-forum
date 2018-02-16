@@ -27,6 +27,7 @@ from .utils import (
     send_activation_change_email, is_username_disabled, get_resend_ac_form
 )
 
+from .choices import *
 from .forms import SignUpForm, ProfileEditForm, ChangeEmailForm
 from .models import *
 
@@ -276,9 +277,27 @@ class ChangeEmailActivateView(RedirectView):
 
 @login_required(login_url="accounts/login/")
 def profile_edit(request):
-    form = ProfileForm
-    context = {'form': form}
-    return render(request, 'profile_edit.html', context)
+    if request.method == 'POST':
+        form = ProfileForm(request.POST, request.FILES)
+        if form.is_valid():
+            profile_id                  = form("profile", "")
+            instance                    = form.save(commit=False)
+            instance.id                 = Profile.objects.get(pk = profile_id)
+            profile.profile_pic         = form.cleaned_data['profile_pic']
+
+            return redirect('accounts/profile/')
+        else:
+            print( form.errors )
+            form = ProfileForm
+            context = {'form': form}
+            return render(request, 'profile_edit.html', context)
+
+    else:
+        form = ProfileForm
+        context = {'form': form}
+        return render(request, 'profile_edit.html', context)
+    
+
 
 @login_required(login_url="accounts/login/")
 def profile_display(request):
@@ -292,9 +311,13 @@ def profile_display(request):
                         points        = 0
                      )
         profile.save()
-    followers   = Follower.objects.filter(user = request.user)
-    following   = Follower.objects.filter(following = request.user)
-    projects    = Project.objects.filter(user = request.user)
-    profile     = profile[0]
+    followers       = Follower.objects.filter(user = request.user).count()
+    following       = Follower.objects.filter(following = request.user).count()
+    projects        = Project.objects.filter(user = request.user)
+    profile         = profile[0]
+    colleges        = dict(Colleges)
+    branch          = dict(Branch)
+    profile.college = colleges[profile.college]
+    profile.branch  = branch[profile.branch]
     context     = {'profile': profile, 'followers': followers, 'following' : following, 'projects': projects}
     return render(request, 'profile_display.html', context)
