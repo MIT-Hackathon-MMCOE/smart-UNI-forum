@@ -35,7 +35,7 @@ urlpatterns = [
     url('accounts/change/email/', ChangeEmailView.as_view(), name='change_email'),
     url('accounts/change/email/<code>/', ChangeEmailActivateView.as_view(),
          name='change_email_activation'),
-    url(r'^accounts/profile/edit/(?P<slug>[^\.]+)/$', ProfileUpdate.as_view(), name='profile_edit'),
+    url(r'^accounts/profile/edit/(?P<slug>[^\.]+)/$', ProfileUpdate.as_view(success_url="/accounts/profile/"), name='profile_edit'),
 
     url('accounts/profile', profile_display, name='profile_display'),
 ]
