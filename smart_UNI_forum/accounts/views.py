@@ -18,6 +18,7 @@ from django.utils.translation import gettext_lazy as _
 from django.views.generic import RedirectView
 from django.views.generic.edit import FormView
 from django.conf import settings
+from .forms import ProfileForm
 
 from .utils import (
     get_login_form, send_activation_email, get_password_reset_form, send_reset_password_email,
@@ -270,3 +271,8 @@ class ChangeEmailActivateView(RedirectView):
         messages.add_message(self.request, messages.SUCCESS, _('You have successfully changed your email!'))
 
         return super(ChangeEmailActivateView, self).get_redirect_url()
+
+def profile_edit(request):
+    form = ProfileForm
+    context = {'form': form}
+    return render(request, 'profile_edit.html', context)

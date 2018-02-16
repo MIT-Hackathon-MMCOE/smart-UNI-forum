@@ -7,8 +7,8 @@ from django.contrib.auth.forms import UserCreationForm
 from django.utils import timezone
 from django.db.models import Q
 from django.utils.translation import gettext_lazy as _
-
-from .models import Activation
+from django.forms import ModelForm
+from .models import Activation, Profile
 
 UserModel = get_user_model()
 
@@ -268,3 +268,7 @@ class ChangeEmailForm(forms.Form):
 			if user:
 				self.add_error('email', self.error_messages['email_already_exists'])
 
+class ProfileForm(ModelForm):
+	class Meta:
+		model = Profile
+		fields = ['profile_pic', 'college', 'branch']

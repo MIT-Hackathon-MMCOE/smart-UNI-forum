@@ -32,10 +32,10 @@ urlpatterns = [
          auth.PasswordResetCompleteView.as_view(template_name='password_reset_complete.html'),
          name='password_reset_complete'),
 
-    url('accounts/profile/edit/', ProfileEditView.as_view(), name='profile_edit'),
     url('accounts/change/email/', ChangeEmailView.as_view(), name='change_email'),
     url('accounts/change/email/<code>/', ChangeEmailActivateView.as_view(),
          name='change_email_activation'),
+    url('accounts/profile/edit', profile_edit, name='profile_edit'),
 
 ]
 
