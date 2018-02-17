@@ -1,6 +1,5 @@
 from rest_framework import routers, serializers, viewsets
 from .serializers import ProfileSerializer
-# , UserSerializer
 from django.contrib.auth.models import User
 from .models import Profile
 

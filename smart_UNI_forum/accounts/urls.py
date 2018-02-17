@@ -38,7 +38,6 @@ urlpatterns = [
     url(r'^accounts/profile/edit/(?P<slug>[^\.]+)/$', ProfileUpdate.as_view(success_url="/accounts/profile/"), name='profile_edit'),
     url('accounts/projects/add/', CreateProjectView.as_view(success_url="/accounts/profile/"), name='add_project'),
     url('accounts/profile', profile_display, name='profile_display'),
-    url(r'^api-auth/', include(router.urls)),
 
 
     # URLs that do not require a session or valid token
