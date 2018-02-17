@@ -84,7 +84,7 @@ def index(request):
 		question.tags 	= [tag for tag in question.tags.names()]
 		question.labels = labels[question.labels]
 
-	context = {'user': user, 'questions': questions, 'ques_form': ques_form}
+	context = {'user': user, 'questions': questions}
 	return render(request, 'index-feed.html', context)
 
 
