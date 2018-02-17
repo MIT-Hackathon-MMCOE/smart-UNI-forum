@@ -42,20 +42,21 @@
                 <hr style="border-width: 2px; color: black;">
                 <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12" style="padding: 0">
                     <div class="col-lg-10 col-md-10 col-sm-12 col-xs-12">
-                        <input type="text" class="form-control" placeholder="Comment..">
+                        <input type="text" name="text" class="form-control" placeholder="Comment..">
+                        <input type="hidden" name="question" value="{{question.id}}" />
                     </div>
                     <div class="col-lg-2 col-md-2 col-sm-12 col-xs-12">
-                        <a href="" class="btn btn-primary no_borders">Comment</a>
+                        <input type="submit" name="question" class="btn btn-primary no_borders" value="Comment">
                     </div>
                 </div>
             </div>
-            {{ ques_form }}
-            <input type="hidden" name="question" value="{{question.id}}" />
-                        <a href="" class="btn btn-primary no_borders">Comment</a>
 
-            {{ ans_form }}
-            <input type="hidden" name="answer" value="{{answer.id}}" />
-                        <a href="" class="btn btn-primary no_borders">Comment</a>
-            <br>
+            <hr>
+
+            <div style="margin-top: 2%; margin-bottom: 2%;">
+                <legend>
+                    <h1>Answers</h1>
+                </legend>
+            </div>
         </div>
 {% endblock %}
