@@ -25,4 +25,5 @@ urlpatterns = [
 	url(r'^question/update/(?P<slug>[^\.]+)/$', QuestionUpdateView.as_view(success_url="/accounts/profile/"), name='question_update'),
 	url(r'^answer/create/', AnswerCreateView.as_view(success_url="/accounts/profile/"), name='answer_create'),
 	url(r'^answer/update/(?P<slug>[^\.]+)/$', AnswerUpdateView.as_view(success_url="/accounts/profile/"), name='answer_update'),
+	url(r'^search/question', question_search, name='question_search')
 ]

@@ -14,3 +14,6 @@ class AnswerCommentCreateForm(ModelForm):
         model = AnswerComment
         fields = ['answer','text']
 
+class SearchForm(forms.Form):
+	key = forms.CharField(required = True, max_length=200, widget =forms.TextInput())
+	fields = ['key']

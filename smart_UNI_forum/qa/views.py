@@ -115,3 +115,14 @@ def question_detail(request, slug):
 	context 			= {'user': user, 'question': question, 'ques_form': ques_form, 'ans_form': ans_form}
 	return render(request, 'question_detail.html', context)
 
+def question_search(request):
+	if request.method == 'POST':
+		form = SearchForm(request.POST)
+		if form.is_valid():
+			instance 	= form.cleaned_data
+			key 	 	= str.strip(instance.key)
+			questions 	= Question.objects.filter(question__contains=key)
+			query 		= ''
+			for question in questions:
+				temp += "<h4><a href="/question/detail/"+ str(question.slug) + "/"></a></h4>"
+			return 
