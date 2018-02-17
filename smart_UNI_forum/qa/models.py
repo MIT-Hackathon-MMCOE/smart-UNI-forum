@@ -45,7 +45,8 @@ class Answer(models.Model):
 	slug 			 = models.SlugField(max_length=200)
 
 	def save(self):
-		self.slug = slugify(self.question)
+		if not self.pk:
+			self.slug = slugify(self.question)
 		super(Answer, self).save()
 
 	def __str__(self):

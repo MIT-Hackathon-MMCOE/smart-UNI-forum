@@ -42,10 +42,6 @@ INSTALLED_APPS = [
     'rest_framework',
     'rest_auth',
     'rest_framework.authtoken',
-    'django.contrib.sites',
-    'allauth',
-    'allauth.account',
-    'rest_auth.registration',
     'qa',
     'taggit',
     'taggit_labels',
@@ -137,8 +133,6 @@ USE_L10N = True
 
 USE_TZ = True
 
-
-SITE_ID = 1
 
 # Static files (CSS, JavaScript, Images)
 # https://docs.djangoproject.com/en/1.11/howto/static-files/

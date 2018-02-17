@@ -115,4 +115,3 @@ def question_detail(request, slug):
 	context 			= {'user': user, 'question': question, 'ques_form': ques_form, 'ans_form': ans_form}
 	return render(request, 'question_detail.html', context)
 
-
