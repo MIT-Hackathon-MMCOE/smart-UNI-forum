@@ -1,10 +1,44 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-	<meta charset="UTF-8">
-	<title>Question Details</title>
-</head>
-<body>
-	{{ question }}
-</body>
-</html>
+{% extends "base.html" %}
+
+{% block content %}
+    {% load staticfiles %}
+    {% load crispy_forms_tags %}
+        <div class="col-md-8 col-md-offset-2 cards" style="margin-top: 2%; margin-bottom: 2%;">
+            <legend>
+                <h1>Question Details</h1>
+            </legend>
+            <h2>{{ question.question }}</h2>
+            <h5 style="color: gray">{{ question.created }}</h5>
+            <h4 style="border: 1px solid lightgray; padding: 10px;">{{ question.description }}</h4>
+            <br>
+            <div style="border-radius: 20px; margin-bottom: 2%">
+                <a href="">
+                    <span class="glyphicon glyphicon-circle-arrow-up" style="font-size: 20px; color: green;"> {{ question.upvotes }}</span>
+                </a>
+                <a href="">
+                    <span class="glyphicon glyphicon-circle-arrow-down" style="font-size: 20px; margin-left: 2%; color: red;"> {{ question.downvotes }}</span>
+                </a>
+                <a href="">
+                    <span class="glyphicon glyphicon-comment" style="font-size: 20px; margin-left: 2%;"></span>
+                </a>
+                <span class="pull-right">Posted By: <a href="">{{ question.user }}</a></span>
+            </div>
+            <div id="comments" class="col-lg-10 col-md-10 col-sm-10 col-xs-10" style="margin-left: 5%; background-color: #f5f5f5; padding: 10px; margin-bottom: 2%">
+                <div class="col-lg-4 col-md-4 col-sm-4 col-xs-4">
+                    <a href="">{{ question.user }}</a>
+                </div>
+                <div class="col-lg-8 col-md-8 col-sm-8 col-xs-8" style="margin-bottom: 1%">
+                    First Comment on Smart Univeristy Hackathon
+                </div>
+                <br>
+                <hr style="border-width: 2px; color: black;">
+                <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12" style="padding: 0">
+                    <div class="col-lg-10 col-md-10 col-sm-10 col-xs-10">
+                        <input type="text" class="form-control" placeholder="Comment..">
+                    </div>
+                    <a href="" class="btn btn-primary no_borders">Comment</a>
+                </div>
+            </div>
+            <br>
+        </div>
+{% endblock %}
