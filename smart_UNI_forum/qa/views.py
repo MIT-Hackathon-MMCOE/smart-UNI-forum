@@ -11,6 +11,7 @@ from django.views.generic import ListView
 from django.core.paginator import Paginator
 from django.core.paginator import EmptyPage
 from django.core.paginator import PageNotAnInteger
+from django.views.decorators.csrf import csrf_protect
 from django.contrib.auth.decorators import login_required
 from .forms import *
 
@@ -115,6 +116,7 @@ def question_detail(request, slug):
 	context 			= {'user': user, 'question': question, 'ques_form': ques_form, 'ans_form': ans_form}
 	return render(request, 'question_detail.html', context)
 
+@csrf_protect
 def question_search(request):
 	if request.method == 'POST':
 		form = SearchForm(request.POST)
@@ -125,4 +127,4 @@ def question_search(request):
 			query 		= ''
 			for question in questions:
 				temp += "<h4><a href="/question/detail/"+ str(question.slug) + "/"></a></h4>"
-			return 
+			return temp
