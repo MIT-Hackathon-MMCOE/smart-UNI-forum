@@ -5,6 +5,7 @@ import datetime
 from django.views.generic.edit import CreateView, UpdateView
 from django.views.generic.detail import DetailView
 from .models import *
+from .choices import Labels
 
 class QuestionCreateView(CreateView):
     model = Question
@@ -61,7 +62,7 @@ class QuestionDetailView(DetailView):
     template_name = 'question_detail.html'
 
     def get_context_data(self, **kwargs):
-        context = super().get_context_data(**kwargs)
-        context['labels'] 	= labels[question.labels]
-        context['tags'] 	= [tag for tag in question.tags.names()]
+        labels = dict(Labels)
+        context = super(QuestionDetailView, self).get_context_data(**kwargs)
+        print( context )
         return context
