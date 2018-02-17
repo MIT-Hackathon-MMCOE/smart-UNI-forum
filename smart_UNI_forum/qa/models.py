@@ -44,6 +44,10 @@ class Answer(models.Model):
 	downvotes		 = models.IntegerField(default=0)
 	slug 			 = models.SlugField(max_length=200)
 
+	def save(self):
+		self.slug = slugify(self.question)
+		super(Answer, self).save()
+
 	def __str__(self):
 		return self.answer_text
 
@@ -51,10 +55,15 @@ class Answer(models.Model):
 class QuestionComment(models.Model):
 	"""docstring for QuestionComment"""
 	user 			= models.ForeignKey(UserModel)
-	answer 			= models.ForeignKey(Answer)
+	question		= models.ForeignKey(Question)
 	text 			= models.CharField(max_length = 200)
 	created			= models.DateTimeField('date published', auto_now_add = True)
 	slug 			= models.SlugField(max_length=200)
+
+	def save(self):
+		self.slug = slugify(self.question)
+		super(QuestionComment, self).save()
+
 
 class AnswerComment(models.Model):
 	"""docstring for AnswerComment"""
@@ -63,7 +72,10 @@ class AnswerComment(models.Model):
 	text 			= models.CharField(max_length = 200)
 	created			= models.DateTimeField('date published', auto_now_add = True)
 	slug 			= models.SlugField(max_length=200)
-
+	
+	def save(self):
+		self.slug = slugify(self.question)
+		super(AnswerComment, self).save()
 
 class QuestionUpvote(models.Model):
 	"""docstring for question upvotes"""

@@ -4,8 +4,7 @@ from django.contrib.auth import views as auth
 from .viewsets import router
 
 from rest_auth.views import (
-    LoginView, LogoutView, UserDetailsView, PasswordChangeView,
-    PasswordResetConfirmView
+    LoginView, LogoutView, UserDetailsView
 )
 urlpatterns = [
 
@@ -39,7 +38,7 @@ urlpatterns = [
     url(r'^accounts/profile/edit/(?P<slug>[^\.]+)/$', ProfileUpdate.as_view(success_url="/accounts/profile/"), name='profile_edit'),
     url('accounts/projects/add/', CreateProjectView.as_view(success_url="/accounts/profile/"), name='add_project'),
     url('accounts/profile', profile_display, name='profile_display'),
-    url(r'^', include(router.urls)),
+    url(r'^api-auth/', include(router.urls)),
 
 
     # URLs that do not require a session or valid token
