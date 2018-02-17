@@ -36,9 +36,8 @@
                             <li>
                                 <div class="inner-addon right-addon" style="margin-top: 10px;">
                                     <i class="glyphicon glyphicon-search"></i>
-                                    <input type="text" class="form-control" name="key" placeholder="Search" />
+                                    <input type="text" id="search" class="form-control" name="key" placeholder="Search" />
                                 </div>
-                                <div id="result"></div>
                             </li>
                         {% endif %}
                     </ul>
@@ -58,6 +57,7 @@
             </div><!-- ./container-->
         </nav>
         <div class="add-margin-top"></div>
+        <div id="result" class="col-lg-8 col-md-8 col-sm-12 col-xs-12 col-md-offet-2"></div>
         {% block content %}
 
         {% endblock %}
@@ -67,6 +67,22 @@
         {% endblock %}
     </body>
     <script src="{% static 'js/jquery.min.js' %}"></script>
+    <script type="text/javascript">
+        // $(document).ready(function(){
+            $('#search').keyup(function(){
+                // alert('hello');
+                // notes: ;
+                // alert();
+                $.ajax({
+                    url: "/search/question/",
+                    data: {'key': $('input[name="key"]').val()},
+                    type: 'POST',
+                    success: function(result){
+                        $("#result").html(result);
+                }});
+            });
+        // });
+    </script>
     <script src="{% static 'js/bootstrap.min.js' %}"></script>
     <script src="{% static 'js/base.js' %}"></script>
 </html>

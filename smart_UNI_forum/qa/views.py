@@ -14,6 +14,7 @@ from django.core.paginator import PageNotAnInteger
 from django.views.decorators.csrf import csrf_protect
 from django.contrib.auth.decorators import login_required
 from .forms import *
+from django.utils.decorators import method_decorator
 
 class QuestionCreateView(CreateView):
 	model = Question
@@ -115,16 +116,14 @@ def question_detail(request, slug):
 	ques_form 			= QuestionCommentCreateForm()
 	context 			= {'user': user, 'question': question, 'ques_form': ques_form, 'ans_form': ans_form}
 	return render(request, 'question_detail.html', context)
-
-@csrf_protect
+from django.views.decorators.csrf import csrf_exempt
+from django.http import HttpResponse
+@method_decorator(csrf_exempt, name='question_search')
 def question_search(request):
 	if request.method == 'POST':
-		form = SearchForm(request.POST)
-		if form.is_valid():
-			instance 	= form.cleaned_data
-			key 	 	= str.strip(instance.key)
-			questions 	= Question.objects.filter(question__contains=key)
-			query 		= ''
-			for question in questions:
-				temp += "<h4><a href="/question/detail/"+ str(question.slug) + "/"></a></h4>"
-			return temp
+		key = request.POST.get("data.key", "")
+		questions 	= Question.objects.filter(question__contains=key)
+		temp 		= ''
+		for question in questions:
+			temp += "<h4><a href='/question/detail/" + str(question.slug) + "/'>" + question.question +"</a></h4>"
+		return HttpResponse(temp)
