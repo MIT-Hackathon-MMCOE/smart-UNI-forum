@@ -49,6 +49,13 @@
                     </div>
                 </div>
             </div>
+            {{ ques_form }}
+            <input type="hidden" name="question" value="{{question.id}}" />
+                        <a href="" class="btn btn-primary no_borders">Comment</a>
+
+            {{ ans_form }}
+            <input type="hidden" name="answer" value="{{answer.id}}" />
+                        <a href="" class="btn btn-primary no_borders">Comment</a>
             <br>
         </div>
 {% endblock %}

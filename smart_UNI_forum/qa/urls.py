@@ -21,7 +21,7 @@ urlpatterns = [
 	url(r'^api-auth/', include(router.urls)),
 	url(r'^questions/$', index, name='question_list'),
 	url(r'^question/create/', QuestionCreateView.as_view(success_url="/accounts/profile/"), name='question_create'),
-	url(r'^question/detail/(?P<slug>[^\.]+)/$', QuestionDetailView.as_view(), name='question_detail'),
+	url(r'^question/detail/(?P<slug>[^\.]+)/$', question_detail, name='question_detail'),
 	url(r'^question/update/(?P<slug>[^\.]+)/$', QuestionUpdateView.as_view(success_url="/accounts/profile/"), name='question_update'),
 	url(r'^answer/create/', AnswerCreateView.as_view(success_url="/accounts/profile/"), name='answer_create'),
 	url(r'^answer/update/(?P<slug>[^\.]+)/$', AnswerUpdateView.as_view(success_url="/accounts/profile/"), name='answer_update'),

@@ -36,7 +36,7 @@ class Answer(models.Model):
 	"""Model class to contain every answer in the forum and to link it
 	to the proper question."""
 	question 		 = models.ForeignKey(Question)
-	answer_text 	 = MarkdownField()
+	answer_text 	 = models.TextField(max_length = 200)
 	created			 = models.DateTimeField('date published', auto_now_add=True)
 	modified		 = models.DateTimeField('date updated', auto_now=True)
 	user 			 = models.ForeignKey(UserModel)
@@ -86,3 +86,4 @@ class AnswerUpvote(models.Model):
 	"""docstring for answer upvotes"""
 	post 	 = models.ForeignKey(Answer)
 	liked_by = models.ForeignKey(UserModel)
+

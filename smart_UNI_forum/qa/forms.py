@@ -3,11 +3,14 @@ from django.forms import ModelForm
 from .models import *
 
 class QuestionCommentCreateForm(ModelForm):
+    question = forms.CharField(required=True, max_length=50, widget=forms.HiddenInput())
     class Meta:
         model = QuestionComment
-        fields = ['question', 'text']
+        fields = ['question','text']
 
-    def is_valid(self, form):
-        user = self.request.user
-        form.instance.user = user
-        return super(QuestionCommentCreateForm, self).is_valid(form)
+class AnswerCommentCreateForm(ModelForm):
+    answer = forms.CharField(required=True, max_length=50, widget=forms.HiddenInput())
+    class Meta:
+        model = AnswerComment
+        fields = ['answer','text']
+

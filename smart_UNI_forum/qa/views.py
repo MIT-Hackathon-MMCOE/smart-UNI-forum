@@ -73,41 +73,46 @@ class QuestionDetailView(DetailView):
 		context = super(QuestionDetailView, self).get_context_data(**kwargs)
 		return context
 
-# apple.tags.names()
-class QuestionListView(ListView):
-	model = Question
-	template_name = "index-feed.html"
-	paginate_by = 15
-
-
-	def get_context_data(self, **kwargs):
-		context = super(QuestionListView, self).get_context_data(**kwargs)
-		questions = Question.objects.all()
-		paginator = Paginator(questions, self.paginate_by)
-
-		page = self.request.GET.get('page')
-
-		try:
-			question_page = paginator.page(page)
-		except PageNotAnInteger:
-			question_page = paginator.page(1)
-		except EmptyPage:
-			question_page = paginator.page(paginator.num_pages)
-
-		context['questions'] = question_page
-		return context
-
 
 @login_required(login_url='/accounts/login/')
 def index(request):
 	user 			= Profile.objects.get(user = request.user)
 	interests 		= user.interests.names()
 	questions 		= Question.objects.filter(tags__name__in = interests).distinct()
-	labels = dict(Labels)
+	labels 			= dict(Labels)
 	for question in questions:
 		question.tags 	= [tag for tag in question.tags.names()]
 		question.labels = labels[question.labels]
 
-	ques_form = QuestionCommentCreateForm()
 	context = {'user': user, 'questions': questions, 'ques_form': ques_form}
 	return render(request, 'index-feed.html', context)
+
+
+@login_required(login_url='/accounts/login/')
+def question_detail(request, slug):
+	if request.method == 'POST':
+		form = AnswerCommentCreateForm(request.POST)
+		if form.is_valid():
+			instance 		= form.save(commit=False)
+			instance.user 	= request.user
+			instance.answer = Answer.objects.get(slug = self.slug)
+			instance.save()
+
+		form = QuestionCommentCreateForm(request.POST)
+		if form.is_valid():
+			instance 			= form.save(commit=False)
+			instance.user 		= request.user
+			instance.question 	= Question.objects.get(slug = self.slug)
+			instance.save()
+
+	user 				= Profile.objects.get(user = request.user)
+	question 			= Question.objects.get(slug = slug)
+	labels 				= dict(Labels)
+	question.tags 		= [tag for tag in question.tags.names()]
+	question.labels 	= labels[question.labels]
+	ans_form 			= AnswerCommentCreateForm()
+	ques_form 			= QuestionCommentCreateForm()
+	context 			= {'user': user, 'question': question, 'ques_form': ques_form, 'ans_form': ans_form}
+	return render(request, 'question_detail.html', context)
+
+
