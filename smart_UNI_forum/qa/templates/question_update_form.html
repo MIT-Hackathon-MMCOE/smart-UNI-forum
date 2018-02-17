@@ -1,0 +1,16 @@
+{% extends "base.html" %}
+
+{% block content %}
+    {% load staticfiles %}
+    {% load crispy_forms_tags %}
+        <div class="col-md-6 col-md-offset-3 cards" style="margin-top: 2%; margin-bottom: 2%;">
+            <legend>
+                <h1>Update Question</h1>
+            </legend>
+            <form method="POST" action="" style="margin-top:3%">{% csrf_token %}
+                {{ form | crispy }}
+                <input class="btn btn-primary no_borders" style="align-self: center;" type="submit" value="Post" />
+            </form>
+            <br>
+        </div>
+{% endblock %}
