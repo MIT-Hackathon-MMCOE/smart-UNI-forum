@@ -1,8 +1,9 @@
 # -*- coding: utf-8 -*-
 from __future__ import unicode_literals
-
 from django.shortcuts import render
+import datetime
 from django.views.generic.edit import CreateView, UpdateView
+from django.views.generic.detail import DetailView
 from .models import *
 
 class QuestionCreateView(CreateView):
@@ -53,3 +54,14 @@ class AnswerUpdateView(UpdateView):
         form.instance.modified 	= modified
         return super(AnswerUpdateView, self).form_valid(form)
 
+class QuestionDetailView(DetailView):
+
+    model = Question
+
+    template_name = 'question_detail.html'
+
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        context['labels'] 	= labels[question.labels]
+        context['tags'] 	= [tag for tag in question.tags.names()]
+        return context

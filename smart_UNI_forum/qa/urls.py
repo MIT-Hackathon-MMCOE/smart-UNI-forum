@@ -18,6 +18,7 @@ from .views import *
 
 urlpatterns = [
     url(r'^question/create/', QuestionCreateView.as_view(success_url="/accounts/profile/"), name='question_create'),
+    url(r'^question/detail/(?P<slug>[^\.]+)/$', QuestionDetailView.as_view(), name='question_detail'),
     url(r'^question/update/(?P<slug>[^\.]+)/$', QuestionUpdateView.as_view(success_url="/accounts/profile/"), name='question_update'),
     url(r'^answer/create/', AnswerCreateView.as_view(success_url="/accounts/profile/"), name='answer_create'),
     url(r'^answer/update/(?P<slug>[^\.]+)/$', AnswerUpdateView.as_view(success_url="/accounts/profile/"), name='answer_update'),
