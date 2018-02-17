@@ -12,7 +12,7 @@ from django.core.paginator import Paginator
 from django.core.paginator import EmptyPage
 from django.core.paginator import PageNotAnInteger
 from django.contrib.auth.decorators import login_required
-
+from .forms import *
 
 class QuestionCreateView(CreateView):
 	model = Question
@@ -107,5 +107,7 @@ def index(request):
 	for question in questions:
 		question.tags 	= [tag for tag in question.tags.names()]
 		question.labels = labels[question.labels]
-	context = {'user': user, 'questions': questions}
+
+	ques_form = QuestionCommentCreateForm()
+	context = {'user': user, 'questions': questions, 'ques_form': ques_form}
 	return render(request, 'index-feed.html', context)
