@@ -17,6 +17,7 @@ from django.conf.urls import url, include
 from .views import *
 
 urlpatterns = [
+    url(r'^questions/$', QuestionListView.as_view(), name='question_list'),
     url(r'^question/create/', QuestionCreateView.as_view(success_url="/accounts/profile/"), name='question_create'),
     url(r'^question/detail/(?P<slug>[^\.]+)/$', QuestionDetailView.as_view(), name='question_detail'),
     url(r'^question/update/(?P<slug>[^\.]+)/$', QuestionUpdateView.as_view(success_url="/accounts/profile/"), name='question_update'),

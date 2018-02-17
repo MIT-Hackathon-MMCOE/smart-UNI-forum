@@ -6,6 +6,10 @@ from django.views.generic.edit import CreateView, UpdateView
 from django.views.generic.detail import DetailView
 from .models import *
 from .choices import Labels
+from django.views.generic import ListView
+from django.core.paginator import Paginator
+from django.core.paginator import EmptyPage
+from django.core.paginator import PageNotAnInteger
 
 class QuestionCreateView(CreateView):
     model = Question
@@ -64,5 +68,27 @@ class QuestionDetailView(DetailView):
     def get_context_data(self, **kwargs):
         labels = dict(Labels)
         context = super(QuestionDetailView, self).get_context_data(**kwargs)
-        print( context )
+        return context
+
+class QuestionListView(ListView):
+    model = Question
+    template_name = "index-feed.html"
+    paginate_by = 15
+
+
+    def get_context_data(self, **kwargs):
+        context = super(QuestionListView, self).get_context_data(**kwargs) 
+        questions = Question.objects.all()
+        paginator = Paginator(questions, self.paginate_by)
+
+        page = self.request.GET.get('page')
+
+        try:
+            question_page = paginator.page(page)
+        except PageNotAnInteger:
+            question_page = paginator.page(1)
+        except EmptyPage:
+            question_page = paginator.page(paginator.num_pages)
+
+        context['questions'] = question_page
         return context
