@@ -1,7 +1,7 @@
 # -*- coding: utf-8 -*-
 from __future__ import unicode_literals
 from django.shortcuts import render
-import datetime
+from datetime import datetime
 from django.views.generic.edit import CreateView, UpdateView
 from django.views.generic.detail import DetailView
 from .models import *
@@ -81,7 +81,7 @@ class QuestionListView(ListView):
 
 
 	def get_context_data(self, **kwargs):
-		context = super(QuestionListView, self).get_context_data(**kwargs) 
+		context = super(QuestionListView, self).get_context_data(**kwargs)
 		questions = Question.objects.all()
 		paginator = Paginator(questions, self.paginate_by)
 

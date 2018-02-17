@@ -31,7 +31,7 @@
                     <ul class="nav navbar-nav" id="navbar-links">
                         {% if request.user.username %}
                             <li>
-                                <a href="#home"><span class="glyphicon glyphicon-th"></span> Feeds</a>
+                                <a href="{% url 'question_list' %}"><span class="glyphicon glyphicon-th"></span> Feeds</a>
                             </li>
                             <li>
                                 <div class="inner-addon right-addon" style="margin-top: 10px;">

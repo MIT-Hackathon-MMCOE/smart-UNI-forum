@@ -1,12 +1,32 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-	<meta charset="UTF-8">
-	<title>Question Details</title>
-</head>
-<body>
-	{% for question in questions %}
-		{{ question }} <br>
-	{% endfor %}
-</body>
-</html>
+{% extends "base.html" %}
+
+{% block content %}
+    {% load staticfiles %}
+        <div class="container" style="margin-top: 2%; margin-bottom: 2%; padding: 10px">
+            {% for question in questions %}
+            <div class="col-lg-10 col-md-10 col-md-offset-1 col-sm-12 col-xs-12 cards" style="margin-bottom: 2%">
+                <div class="row" style="padding: 10px;">
+                    <h2>
+                        <b><a href="{% url 'question_detail' slug=question.slug %}">{{ question.question }}</a></b>
+                    </h2>
+                    <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12" style="padding: 0">
+                        <h5 style="color: gray; padding: 0" class="pull-left col-lg-6 col-md-6 col-sm-6 col-xs-6">{{ question.created }}</h5>
+                        <span class="pull-right" style="padding-top: 8px">Posted By: <a href="">{{ question.user }}</a></span>
+                    </div>
+                </div>
+                <div class="row" style="padding: 10px;">
+                    <h4>{{ question.description|truncatechars:75 }}</h4>
+                </div>
+                <div class="row" style="padding: 10px;">
+                    <div>
+                        Label: <span class="btn btn-warning no_borders">{{ question.labels }}</span>
+                        Tags:
+                        {% for tag in question.tags %}
+                            <span class="btn btn-primary no_borders pull">{{ tag }}</span>
+                        {% endfor %}
+                    </div>
+                </div>
+            </div>
+            {% endfor %}
+        </div>
+{% endblock %}
