@@ -15,6 +15,9 @@
                     </div>
                 </div>
                 <div class="row" style="padding: 10px;">
+                    <h4>{{ question.description|truncatechars:75 }}</h4>
+                </div>
+                <div class="row" style="padding: 10px;">
                     <div>
                         Label: <span class="btn btn-warning no_borders">{{ question.labels }}</span>
                         Tags:
