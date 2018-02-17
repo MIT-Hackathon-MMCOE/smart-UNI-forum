@@ -98,7 +98,7 @@ class SignInView(SuccessRedirectView):
 class SignUpView(FormView):
     template_name = 'signup.html'
     form_class = SignUpForm
-    success_url = '/'
+    success_url = '/accounts/profile/'
 
     def form_valid(self, form):
         user = form.save(commit=False)
@@ -292,7 +292,7 @@ def profile_display(request):
         followers       = Follower.objects.filter(user = request.user).count()
         following       = Follower.objects.filter(following = request.user).count()
         projects        = Project.objects.filter(user = request.user)
-        profile         = profile[0]
+        # print(profile)
         context     = {'profile': profile, 'followers': followers, 'following' : following, 'projects': projects}
         return render(request, 'profile_display.html', context)
     else:
@@ -302,8 +302,14 @@ def profile_display(request):
         profile         = profile.first()
         colleges        = dict(Colleges)
         branch          = dict(Branch)
-        profile.college = colleges[profile.college]
-        profile.branch  = branch[profile.branch]
+        try:
+            profile.college = colleges[profile.college]
+        except KeyError:
+            profile.college = ''
+        try:
+            profile.branch  = branch[profile.branch]
+        except KeyError:
+            profile.branch = ''
         profile.interests = [interest for interest in profile.interests.names()]
         questions       = Question.objects.filter(user = request.user)
         # print(questions.tags.names())
