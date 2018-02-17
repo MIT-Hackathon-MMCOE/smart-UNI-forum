@@ -57,6 +57,41 @@
                 <legend>
                     <h1>Answers</h1>
                 </legend>
+                {% for answer in answers %}
+            <h5 style="color: gray">{{ answer.created }}</h5>
+            <h4 style="border: 1px solid lightgray; padding: 10px;">{{ answer.answer_text }}</h4>
+            <br>
+            <div style="border-radius: 20px; margin-bottom: 2%">
+                <a href="">
+                    <span class="glyphicon glyphicon-circle-arrow-up" style="font-size: 20px; color: green;"> {{ answer.upvotes }}</span>
+                </a>
+                <a href="">
+                    <span class="glyphicon glyphicon-circle-arrow-down" style="font-size: 20px; margin-left: 2%; color: red;"> {{ answer.downvotes }}</span>
+                </a>
+                <a href="">
+                    <span class="glyphicon glyphicon-comment" style="font-size: 20px; margin-left: 2%;"></span>
+                </a>
+                <span class="pull-right">Posted By: <a href="">{{ answer.user }}</a></span>
+            </div>
+            <div id="comments" class="col-lg-10 col-md-10 col-sm-10 col-xs-10" style="margin-left: 5%; background-color: #f5f5f5; padding: 10px; margin-bottom: 2%">
+                <div class="col-lg-4 col-md-4 col-sm-4 col-xs-4">
+                    <a href="">{{ answer.user }}</a>
+                </div>
+                <br>
+                <hr style="border-width: 2px; color: black;">
+                <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12" style="padding: 0">
+                    <div class="col-lg-10 col-md-10 col-sm-12 col-xs-12">
+                        <input type="text" name="text" class="form-control" placeholder="Comment..">
+                        <input type="hidden" name="answer" value="{{answer.id}}" />
+                    </div>
+                    <div class="col-lg-2 col-md-2 col-sm-12 col-xs-12">
+                        <input type="submit" name="answer" class="btn btn-primary no_borders" value="Comment">
+                    </div>
+                </div>
+            </div>
+
+
+                {% endfor %}
             </div>
         </div>
 {% endblock %}

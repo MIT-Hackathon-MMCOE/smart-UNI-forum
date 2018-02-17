@@ -112,9 +112,10 @@ def question_detail(request, slug):
 	labels 				= dict(Labels)
 	question.tags 		= [tag for tag in question.tags.names()]
 	question.labels 	= labels[question.labels]
+	answers				= Answer.objects.filter(question = question)
 	ans_form 			= AnswerCommentCreateForm()
 	ques_form 			= QuestionCommentCreateForm()
-	context 			= {'user': user, 'question': question, 'ques_form': ques_form, 'ans_form': ans_form}
+	context 			= {'user': user, 'question': question, 'answers': answers,'ques_form': ques_form, 'ans_form': ans_form}
 	return render(request, 'question_detail.html', context)
 from django.views.decorators.csrf import csrf_exempt
 from django.http import HttpResponse
