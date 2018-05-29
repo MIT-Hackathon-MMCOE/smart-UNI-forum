@@ -120,7 +120,7 @@ def question_detail(request, slug):
 	answers				= Answer.objects.filter(question = question)
 	for answer in answers:
 		answer.profile  = Profile.objects.get(user = answer.user).slug
-		answer.comments = [comment for comment in AsnwerComment.objects.filter(answer = answer)]
+		answer.comments = [comment for comment in AnswerComment.objects.filter(answer = answer)]
 	ans_c_form 			= AnswerCommentCreateForm()
 	ans_form 			= AnswerCreateForm()
 	ques_c_form			= QuestionCommentCreateForm()
