@@ -15,6 +15,9 @@ from django.views.decorators.csrf import csrf_protect
 from django.contrib.auth.decorators import login_required
 from .forms import *
 from django.utils.decorators import method_decorator
+from django.views.decorators.csrf import csrf_exempt
+from django.http import HttpResponse
+
 
 class QuestionCreateView(CreateView):
 	model = Question
@@ -78,13 +81,14 @@ class QuestionDetailView(DetailView):
 
 @login_required(login_url='/accounts/login/')
 def index(request):
-	user 			= Profile.objects.get(user = request.user)
-	interests 		= user.interests.names()
-	questions 		= Question.objects.filter(tags__name__in = interests).distinct()
-	labels 			= dict(Labels)
+	user 					= Profile.objects.get(user = request.user)
+	interests 				= user.interests.names()
+	questions 				= Question.objects.filter(tags__name__in = interests).distinct()
+	labels 					= dict(Labels)
 	for question in questions:
-		question.tags 	= [tag for tag in question.tags.names()]
-		question.labels = labels[question.labels]
+		question.tags 		= [tag for tag in question.tags.names()]
+		question.labels 	= labels[question.labels]
+		question.profile 	= Profile.objects.get(user = question.user).slug
 
 	context = {'user': user, 'questions': questions}
 	return render(request, 'index-feed.html', context)
@@ -107,18 +111,22 @@ def question_detail(request, slug):
 			instance.question 	= Question.objects.get(slug = self.slug)
 			instance.save()
 
-	user 				= Profile.objects.get(user = request.user)
 	question 			= Question.objects.get(slug = slug)
+	user 				= Profile.objects.get(user = question.user)
 	labels 				= dict(Labels)
 	question.tags 		= [tag for tag in question.tags.names()]
 	question.labels 	= labels[question.labels]
+	question.comments 	= QuestionComment.objects.filter(question = question)
 	answers				= Answer.objects.filter(question = question)
-	ans_form 			= AnswerCommentCreateForm()
-	ques_form 			= QuestionCommentCreateForm()
-	context 			= {'user': user, 'question': question, 'answers': answers,'ques_form': ques_form, 'ans_form': ans_form}
+	for answer in answers:
+		answer.profile  = Profile.objects.get(user = answer.user).slug
+		answer.comments = [comment for comment in AsnwerComment.objects.filter(answer = answer)]
+	ans_c_form 			= AnswerCommentCreateForm()
+	ans_form 			= AnswerCreateForm()
+	ques_c_form			= QuestionCommentCreateForm()
+	context 			= {'user': user, 'question': question, 'answers': answers, 'ques_c_form': ques_c_form, 'ans_form': ans_form, 'ans_c_form': ans_c_form}
 	return render(request, 'question_detail.html', context)
-from django.views.decorators.csrf import csrf_exempt
-from django.http import HttpResponse
+
 @method_decorator(csrf_exempt, name='question_search')
 def question_search(request):
 	if request.method == 'POST':

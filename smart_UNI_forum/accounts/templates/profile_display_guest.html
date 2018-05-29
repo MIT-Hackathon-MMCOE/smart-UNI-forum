@@ -1,0 +1,120 @@
+{% extends "base.html" %}
+
+{% block content %}
+    {% load staticfiles %}
+        <div class="container" style="margin-top: 6%">
+            <div class="col-lg-12 col-md-12 col-sm-12">
+                <div class="col-lg-4 col-md-4 col-sm-12 cards">
+                    <div class="row text-center">
+                        <div class="col-lg-12 col-md-12 col-sm-12">
+                            <img src="{% static "images/python.jpg" %}" class="img-responsive img-circle center-block" style="height: 120px; width: 120px; margin-top: 4%">
+                        </div>
+                    </div>
+                    <div class="row text-center">
+                        <h1>{{ profile }} </h1>
+                        <h5 class="lead">
+                            {{ profile.user.username }}
+                        </h5>
+                        <hr style="margin-left: 10%; margin-right: 10%">
+                    </div>
+                    {% if profile.college %}
+                        <div class="row" style="margin-left: 5%; margin-bottom: 5%">
+                            <div class="col-lg-6 col-md-6 col-sm-6 col-xs-5">
+                                <div class="btn btn-success no_borders">Followers &#9679; {{ followers }}</div>
+                            </div>
+                            <div class="col-lg-6 col-md-6 col-sm-6 col-xs-5">
+                                <div class="btn btn-success no_borders">Following &#9679; {{ following }}</div>
+                            </div>
+                            <div style="padding: 5%"></div>
+                        </div>
+                        <div class="row"  style="margin-left: 5%; margin-right: 5%; margin-bottom: 5%">
+                            <div class="col-lg-12 col-md-12 col-sm-12  text-center">
+                                <div class="btn btn-primary btn-block no_borders" >
+                                        Follow User
+                                </div>
+                            </div>
+                            <div style="padding: 5%"></div>
+                            
+                        </div>
+                        <div class="row" style="margin-left: 5%; margin-right: 5%; margin-bottom: 5%">
+                            <div class="col-lg-12 col-md-12 col-sm-12 text-center">
+                                <div style="border: 1px solid lightgray; padding: 10px;">College | {{ profile.college }}</div>
+                            </div>
+                        </div>
+                        <div class="row" style="margin-left: 5%; margin-right: 5%; margin-bottom: 5%">
+                            <div class="col-lg-12 col-md-12 col-sm-12 text-center">
+                                <div style="border: 1px solid lightgray; padding: 10px;">Branch | {{ profile.branch }}</div>
+                            </div>
+                        </div>
+                        <div class="row" style="margin-left: 5%; margin-right: 5%; margin-bottom: 5%">
+                            <div class="col-lg-12 col-md-12 col-sm-12 text-center">
+                                <h3>Interests:</h3>
+                                <span class="clearfix"></span>
+                                {% for interest in profile.interests %}
+                                    <div class="btn form-control btn-primary no_borders" style="margin-bottom: 1%">{{ interest }}</div>
+                                    <br>
+                                {% endfor %}
+                            </div>
+                        </div>
+                    {% endif %}
+                </div> <!-- col-md-4 -->
+                <div id="mobile_view" class="col-lg-7 col-md-7 col-sm-12 col-xs-12" style="padding: 0; margin-left: 2%;">
+                    <div class="col-lg-12 col-md-12 col-sm-12 cards" style="margin-bottom: 5%">
+                        <legend class="col-lg-12 col-md-12 col-sm-12 col-xs-12" style="padding: 0">
+                            <div class="col-lg-6 col-md-6 col-sm-6 col-xs-6" style="padding: 0">
+                                <h1 style="color: #01579B; padding: 0"">Projects</h1>
+                            </div>
+                        </legend>
+                        {% if projects %}
+                            {% for project in projects %}
+                                <h3><b>{{ project.title }}</b></h3>
+                                <h4>{{ project.description }}</h4>
+                                <h4> <a href="{{ project.url }}">{{ project.url }}</a></h4>
+                                <hr>
+                            {% endfor %}
+                        {% else %}
+                            <h3>No projects added by the user</h3>
+                        {% endif %}
+                        {{ project_form }}
+                    </div>
+                    <div class="col-lg-12 col-md-12 col-sm-12 cards" style="margin-bottom: 5%">
+                        <legend class="col-lg-12 col-md-12 col-sm-12 col-xs-12" style="padding: 0">
+                            <div class="col-lg-6 col-md-6 col-sm-6 col-xs-6" style="padding: 0">
+                                <h1 style="color: #01579B; padding: 0"">Posts</h1>
+                            </div>
+                        </legend>
+                        {% if questions %}
+                            {% for question in questions %}
+                                <h2>
+                                    <b><a href="{% url 'question_detail' slug=question.slug %}">{{ question.question }}</a></b>
+                                </h2>
+                                <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12" style="padding: 0">
+                                    <h5 style="color: gray; padding: 0" class="pull-left col-lg-6 col-md-6 col-sm-6 col-xs-6">{{ question.created }}</h5>
+                                    <div class="pull-right">
+                                        <span class="glyphicon glyphicon-circle-arrow-up" style="font-size: 20px; color: green;">
+                                            {{ question.upvotes }}
+                                        </span>
+                                        <span class="glyphicon glyphicon-circle-arrow-down" style="font-size: 20px; color: red;">
+                                            {{ question.downvotes }}
+                                        </span>
+                                    </div>
+                                </div>
+                                <br>
+                                <div>
+                                    Label: <span class="btn btn-warning no_borders">{{ question.labels }}</span>
+                                    <br>
+                                    <br>
+                                    Tags:
+                                    {% for tag in question.tags %}
+                                        <span class="btn btn-primary no_borders pull">{{ tag }}</span>
+                                    {% endfor %}
+                                </div>
+                                <hr>
+                            {% endfor %}
+                        {% endif %}
+                        {{ project_form }}
+                    </div>
+                </div> <!-- col-md-8 -->
+            </div> <!-- col-md-12 -->
+        </div> <!-- container -->
+{% endblock %}

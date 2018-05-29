@@ -21,24 +21,20 @@
                 <a href="">
                     <span class="glyphicon glyphicon-comment" style="font-size: 20px; margin-left: 2%;"></span>
                 </a>
-                <span class="pull-right">Posted By: <a href="">{{ question.user }}</a></span>
+                <span class="pull-right">Posted By: <a href="{% url 'profile_view' slug=user.slug %}">{{ question.user }}</a></span>
             </div>
             <div id="comments" class="col-lg-10 col-md-10 col-sm-10 col-xs-10" style="margin-left: 5%; background-color: #f5f5f5; padding: 10px; margin-bottom: 2%">
+            {% if question.comments %}
+                {% for comment in question.comments %}
                 <div class="col-lg-4 col-md-4 col-sm-4 col-xs-4">
-                    <a href="">{{ question.user }}</a>
+                    {{ comment.user }}
                 </div>
                 <div class="col-lg-8 col-md-8 col-sm-8 col-xs-8" style="margin-bottom: 1%">
-                    First Comment on Smart Univeristy Hackathon
+                    {{comment}}
                 </div>
                 <br>
-                <hr style="border-width: 2px; color: black;">
-                <div class="col-lg-4 col-md-4 col-sm-4 col-xs-4">
-                    <a href="">{{ question.user }}</a>
-                </div>
-                <div class="col-lg-8 col-md-8 col-sm-8 col-xs-8" style="margin-bottom: 1%">
-                    Second Comment on Smart Univeristy Hackathon
-                </div>
-                <br>
+                {% endfor %}
+            {% endif %}
                 <hr style="border-width: 2px; color: black;">
                 <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12" style="padding: 0">
                     <div class="col-lg-10 col-md-10 col-sm-12 col-xs-12">
@@ -50,13 +46,13 @@
                     </div>
                 </div>
             </div>
-
+                
             <hr>
-
             <div style="margin-top: 2%; margin-bottom: 2%;">
                 <legend>
                     <h1>Answers</h1>
                 </legend>
+                {% if answers %}
                 {% for answer in answers %}
             <h5 style="color: gray">{{ answer.created }}</h5>
             <h4 style="border: 1px solid lightgray; padding: 10px;">{{ answer.answer_text }}</h4>
@@ -71,27 +67,51 @@
                 <a href="">
                     <span class="glyphicon glyphicon-comment" style="font-size: 20px; margin-left: 2%;"></span>
                 </a>
-                <span class="pull-right">Posted By: <a href="">{{ answer.user }}</a></span>
+                <span class="pull-right">Posted By: <a href="{% url 'profile_view' slug=answer.profile %}">{{ answer.user }}</a></span>
             </div>
-            <div id="comments" class="col-lg-10 col-md-10 col-sm-10 col-xs-10" style="margin-left: 5%; background-color: #f5f5f5; padding: 10px; margin-bottom: 2%">
-                <div class="col-lg-4 col-md-4 col-sm-4 col-xs-4">
-                    <a href="">{{ answer.user }}</a>
+            {% if answer.comments %}
+                <div id="comments" class="col-lg-10 col-md-10 col-sm-10 col-xs-10" style="margin-left: 5%; background-color: #f5f5f5; padding: 10px; margin-bottom: 2%">
+                {% for comment in answer.comments %}
+                    <div class="col-lg-4 col-md-4 col-sm-4 col-xs-4">
+                        <a href="{% url 'profile_view' slug=question.profile %}">{{ comment.user }}</a>
+                    </div>
+                    <div class="col-lg-8 col-md-8 col-sm-8 col-xs-8" style="margin-bottom: 1%">
+                        {{comment}}
+                    </div>
+                    <br>
+                {% endfor %}
                 </div>
-                <br>
+            {% endif %}
                 <hr style="border-width: 2px; color: black;">
                 <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12" style="padding: 0">
-                    <div class="col-lg-10 col-md-10 col-sm-12 col-xs-12">
-                        <input type="text" name="text" class="form-control" placeholder="Comment..">
-                        <input type="hidden" name="answer" value="{{answer.id}}" />
-                    </div>
-                    <div class="col-lg-2 col-md-2 col-sm-12 col-xs-12">
-                        <input type="submit" name="answer" class="btn btn-primary no_borders" value="Comment">
-                    </div>
+                    <form action="post">
+                        <div class="col-lg-10 col-md-10 col-sm-12 col-xs-12">
+                            <input type="text" name="text" class="form-control" placeholder="Comment..">
+                            <input type="hidden" name="answer" value="{{answer.id}}" />
+                        </div>
+                        <div class="col-lg-2 col-md-2 col-sm-12 col-xs-12">
+                            <input type="submit" name="answer" class="btn btn-primary no_borders" value="Comment">
+                        </div>
+                    </form>
+                  {% endfor %}
+                {% else %}
+                    <legend>
+                        Be the first one to write answer to this question.
+                    </legend>
+                        <form method="POST" action="" ="">
+                        {% csrf_token %}
+                        {{ ans_form | crispy }}
+                        <div class="col-lg-2 col-md-2 col-sm-12 col-xs-12 pull-right">
+                            <input type="submit" name="answer" class="btn btn-primary no_borders" value="Submit">
+                        </div>
+                        <br>
+                        </form>
+                      
+                    <hr style="border-width: 2px; color: black;">
+                {% endif %}
                 </div>
             </div>
-
-
-                {% endfor %}
             </div>
         </div>
+              
 {% endblock %}

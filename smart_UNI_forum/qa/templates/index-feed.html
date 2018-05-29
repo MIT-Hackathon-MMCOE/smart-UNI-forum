@@ -11,7 +11,7 @@
                     </h2>
                     <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12" style="padding: 0">
                         <h5 style="color: gray; padding: 0" class="pull-left col-lg-6 col-md-6 col-sm-6 col-xs-6">{{ question.created }}</h5>
-                        <span class="pull-right" style="padding-top: 8px">Posted By: <a href="">{{ question.user }}</a></span>
+                        <span class="pull-right" style="padding-top: 8px">Posted By: <a href="{% url 'profile_view' slug=question.profile %}">{{ question.user }}</a></span>
                     </div>
                 </div>
                 <div class="row" style="padding: 10px;">

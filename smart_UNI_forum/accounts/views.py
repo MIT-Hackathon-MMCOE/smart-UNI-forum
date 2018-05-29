@@ -320,6 +320,35 @@ def profile_display(request):
         context         = {'profile': profile, 'followers': followers, 'following' : following, 'projects': projects, 'questions': questions}
         return render(request, 'profile_display.html', context)
 
+@login_required(login_url="accounts/login/")
+def profile_view(request, slug):
+    profile = Profile.objects.get(slug = slug)
+
+    followers       = Follower.objects.filter(user = profile.user).count()
+    following       = Follower.objects.filter(following = profile.user).count()
+    projects        = Project.objects.filter(user = profile.user)
+    colleges        = dict(Colleges)
+    branch          = dict(Branch)
+    try:
+        profile.college = colleges[profile.college]
+    except KeyError:
+        profile.college = ''
+    try:
+        profile.branch  = branch[profile.branch]
+    except KeyError:
+        profile.branch = ''
+    profile.interests = [interest for interest in profile.interests.names()]
+    questions       = Question.objects.filter(user = profile.user)
+
+    labels = dict(Labels)
+    for question in questions:
+        question.labels = labels[question.labels]
+        question.tags = [tag for tag in question.tags.names()]
+    context         = {'profile': profile, 'followers': followers, 'following' : following, 'projects': projects, 'questions': questions}
+    return render(request, 'profile_display_guest.html', context)
+
+
+
 class ProfileUpdate(UpdateView):
     model = Profile
     fields = [ 'first_name', 'last_name', 'bio', 'interests', 'profile_pic', 'college', 'branch']
