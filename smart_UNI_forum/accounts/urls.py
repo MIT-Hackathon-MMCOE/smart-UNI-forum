@@ -7,8 +7,8 @@ from rest_auth.views import (
     LoginView, LogoutView, UserDetailsView
 )
 urlpatterns = [
-
-
+    
+    url(r'^api-auth/', include(router.urls)),
     url('i18n/', include('django.conf.urls.i18n')),
 
     url('accounts/login/', SignInView.as_view(), name='login'),
@@ -40,9 +40,7 @@ urlpatterns = [
     url('accounts/profile', profile_display, name='profile_display'),
 
 
-    # URLs that do not require a session or valid token
     url(r'^rest/login/$', LoginView.as_view(), name='rest_login'),
-    # URLs that require a user to be logged in with a valid session / token.
     url(r'^rest/user/$', UserDetailsView.as_view(), name='rest_user_details'),
     url(r'^rest/logout/$', LogoutView.as_view(), name='rest_logout'),
 ]

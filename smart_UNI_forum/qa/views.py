@@ -128,3 +128,7 @@ def question_search(request):
 		for question in questions:
 			temp += "<h4><a href='/question/detail/" + str(question.slug) + "/'>" + question.question +"</a></h4>"
 		return HttpResponse(temp)
+
+
+def follow_user(request):
+	return HttpResponse("Okay")

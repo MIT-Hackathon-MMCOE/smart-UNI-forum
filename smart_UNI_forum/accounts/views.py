@@ -282,12 +282,12 @@ def profile_display(request):
     profile = Profile.objects.filter(user = request.user)
     if not profile:
         profile = Profile(
-                        user          = request.user,
-                        first_name    = request.user.first_name,
-                        last_name     = request.user.last_name,
-                        level         = 0,
-                        points        = 0
-                     )
+                    user          = request.user,
+                    first_name    = request.user.first_name,
+                    last_name     = request.user.last_name,
+                    level         = 0,
+                    points        = 0
+                 )
         profile.save()
         followers       = Follower.objects.filter(user = request.user).count()
         following       = Follower.objects.filter(following = request.user).count()

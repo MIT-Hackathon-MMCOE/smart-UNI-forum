@@ -32,7 +32,8 @@ class Profile(models.Model):
 	slug 			= models.SlugField(max_length = 60, unique = True)
 
 	def save(self):
-		self.slug = slugify(self.get_full_name())
+		if not self.pk:
+			self.slug = slugify(self.get_full_name() + " " + self.user.email)
 		super(Profile, self).save()
 
 	def __str__(self):
